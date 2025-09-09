@@ -1,0 +1,4 @@
+snack_case
+kebab-case
+PascalCase
+camelCase
