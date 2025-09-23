@@ -1,0 +1,97 @@
+/*
+*var- definiuje zmienną, która zawsze będzie musiała mieć ten sam typ
+*val- definiuje zmienną stałą, której nie będzie można zmienić wartości
+
+*typy danych
+*String = "kilka znaków może mieć"
+*Char = 'z' zawsze jedn znak 
+
+*konwertowanie zmiennej do innej zmiennej- nazwa_zmiennej.toTyp()
+
+*var nazwa: Typ = watość 
+to samo co 
+*var nazwa = wartość
+tylko, że w 2 przypadku program sam dopasowuje typ
+*/
+
+fun main() {
+// FUN nie można sobie dawać kiedy się chce, bo on oznacza definiowanie obiektu
+    val a: Double = 123.745642215 
+    val x: Float = a.toFloat() 
+    val y: Int = x.toInt() 
+    println("a=${a+111}, x=${x+111}, y=${y+111}")
+
+
+
+    println((Math.random()*10).toInt())
+//to samo
+    println((1..6).random())
+
+
+
+    val age = 17
+//if przypisany do zmiennej musi zawsze zwracać jakiś wynik !!!
+    val discount = if (age <18){
+        50 
+    }else if (age >= 65){
+        30 
+    }else{ 
+    0 
+    }
+    
+    println("Twoja zniżka wynosi: $discount%")
+
+
+/*
+*struktura when
+when(value){
+        case1 ->coś jest robione
+        case2 ->cos jest robione
+        else ->cos zrobione
+    }
+*/
+val dayOfWeek = 1
+    
+    when(dayOfWeek){
+        1 -> println("poniedziałek")
+        2 -> println("wtorek")
+        3 -> println("środa")
+        4 -> println("czwartek")
+        5 -> println("piątek")
+        6 -> println("sobota")
+        7 -> println("niedziela")
+        else -> println("nie znam takiego dnia")
+    }
+
+val dayName = when(dayOfWeek){
+        1 -> "poniedziałek"
+        2 -> "wtorek"
+        3 -> "środa"
+        4 -> "czwartek"
+        5 -> "piątek"
+        6 -> "sobota"
+        7 -> "niedziela"
+        else -> "nie znam takiego dnia"
+    }
+    println(dayName)
+
+
+    val num =0
+    val result = when {
+        num < 0 -> "liczba ujemna"
+        num > 0 -> "liczba dodatnia"
+        else -> "zero"
+    }
+    println(result)
+
+val number = 125 
+    
+    when(number){
+        in 90..100 -> println("Super wynik") 
+        in 80..89 -> println("Całkiem bardzo dobrze")
+        in 70..79 -> println("Dobry wynik") 
+        else -> println("Niestety poprawka")
+    }
+
+
+}
