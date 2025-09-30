@@ -1,0 +1,87 @@
+internal class Program{
+    //1
+    /*
+    public static int Dodaj(int a, int b)
+    {
+        return a + b;
+    }
+    //1+
+    public static int Dodaj(int a, int b)
+    {
+        return a + b;
+    }
+    public static int Dodaj(int c)
+    {
+        return c;
+    }
+    //2
+    public static double PoleKwadratu(double a)
+    {
+        return a * a;
+    }
+    public static double PoleProstokata(double a, double b)
+    {
+        return a * b;
+    }
+    //2+
+    public double Pole(double a)
+    {
+        return a * a;
+    }
+    public double Pole(double a, double b)
+    {
+        return a * b;
+    }
+    //3
+    public static bool CzyParzysta(int x)
+    {
+        if (x % 2 == 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    */
+    //4
+    public static int SumaTablicy(int[] tablica)
+    {
+        int suma = 0;
+        for (int i = 1; i < tablica.Length; i++)
+        {
+            suma =suma + tablica[i];
+        }
+        return suma;
+    }
+    
+public static void Main(string[] args)
+{   
+    var p = new Program();
+    /*
+    //1
+    int wynik1 = Dodaj(3, 6);
+    Console.WriteLine($"Wynik dodawania {wynik1}");
+    //1+
+    int wynik1+ = Dodaj(3, 6) + Dodaj(7);
+    Console.WriteLine($"Wynik dodawania {wynik1+}");
+    //2
+    double wynikA = PoleKwadratu(3);
+    Console.WriteLine($"a*a = {wynikA}");    
+    double wynikAB = PoleProstokata(2, 4);
+    Console.WriteLine($"a*b = {wynikAB}"); 
+    //2+
+    double wynikPoleA = p.Pole(3);
+    Console.WriteLine($"a*a = {wynikPoleA}");    
+    double wynikPoleAB = p.Pole(2, 4);
+    Console.WriteLine($"a*b = {wynikPoleAB}");
+    //3
+    bool wynik3 = CzyParzysta(6);
+    Console.WriteLine(wynik3);
+    */
+    //4
+    int wynik = SumaTablicy
+    
+}
+}
