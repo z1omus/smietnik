@@ -1,0 +1,100 @@
+//iteracja- wykonywanie jakiejś/jakichś czynności ileś razy
+////////funkcje powinno się pisac poza funkcją main
+
+
+fun powitanie(imie: String = "gość"): String {
+    return "Witaj, $imie!"
+}
+
+
+
+
+fun operujNaLiczbach(a: Int, b: Int, operacja: (Int, Int)->Int): Int{
+    return operacja(a,b)
+}
+//sygnatura- fun dodaj pasuje schematycznie do operacji
+fun dodaj(x: Int, y: Int): Int{
+    return x+y
+}
+fun odejmij(x:Int, y:Int): Int{
+    return x-y
+}
+
+fun main(){
+    val suma = operujNaLiczbach(a=10, b=20, operacja=::dodaj)
+    //:: bierze dodaj i zwraca preferencje do tej funkcji
+    print(suma)
+    val zz = operujNaLiczbach(a=10, b=20, operacja=::odejmij)
+    print(zz)
+
+
+    println(powitanie())
+    println(powitanie(imie = "Hermenegilda"))
+
+
+/*
+for(elem in collection){    
+...
+} 
+*/
+//for- przykład
+for(i in 1 .. 5)
+    println(i)
+//można 
+val names = arrayOf("Kasia", "Basia", "Asia")
+    for(name  in names){
+        println(name)
+    }
+//while- przykład
+var a = 10
+     while(a>0){
+         println("hura $a")
+         a--
+     }
+//STRUKTURY DANYCH- wewnętrzne elementy w których przechowujemy różne dane
+//tablica ma z góry narzuconą ilość elementów- struktura o narzuconej wielkości
+//getter sposób na odczytanie danych 
+//setter sposób na zmienianie/modyfikowanie/dodawanie danych
+/*
+val nums = arrayOf(1, 13, 23, 25, 42, 2, 223)
+    println("nums pod indeksem 2 ${nums[2]}")
+    nums[2] = 123422
+    println("nums pod indeksem 2 ${nums[2]}")
+*/
+//można wkładać różne typy danych
+val nums = arrayOf(1, 13, 23, 25, 42, 2, 223, "swfx")
+    println("nums pod indeksem 2 ${nums[2]}")
+    nums[2] = "124332"
+    println("nums pod indeksem 2 ${nums[2]}")
+//mutowalna- może ulegać zmianie
+// listy mutowalnie i niemutowalne
+//w listach i tablicach val jedynie pilnuje ilości rekordów
+??LISTY NIEMUTOWALNE
+val fruits = listOf("jabłko", "arbuz", "śliwka", "gruszka", 10, true)
+//moga być różne typy danych
+    println(fruits[0])
+    println(fruits[2])
+
+    for(fruit in fruits){
+        println(fruit)
+    }
+println(fruits)
+//    fruits[0] = "pomarancza"
+//nie ma settera, więc nie można modyfikować jej potem
+//LISTY MUTOWALNE
+var i = 3
+    val mutablePizzas = mutableListOf("Margerita", "Pepperoni", "Hawajska", "Chłopska", true)
+    println("twoja pizza to ${mutablePizzas[i]}")
+    mutablePizzas[0]="Kebab"
+    println(mutablePizzas)
+    println(mutablePizzas.size)
+    mutablePizzas.add("Nie wiem")
+    println(mutablePizzas.size)
+    println(mutablePizzas)
+    mutablePizzas.remove("Hawajska")
+    println(mutablePizzas)
+    println(mutablePizzas.size)
+    mutablePizzas.removeAt(1)
+    println(mutablePizzas)
+    println(mutablePizzas.size)
+}
