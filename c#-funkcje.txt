@@ -1,0 +1,87 @@
+internal class Program //klasa
+{
+
+  public void Powitaj()
+    {
+        Console.WriteLine("Witaj w C#");
+    }
+ //DODAWANIE
+    public int Dodaj(int a, int b)//jesteśmy poza metodą main
+    {
+        return a + b;
+    }
+
+//WPISYWANIE DANYCH
+  /*
+     public void Powitanie(string imie)
+    {
+        Console.WriteLine($"Witaj, {imie}");
+    }
+//parametr to np. string imie, a argument "Jan"
+Powitanie("Jan");
+*/
+    public void showInfo(string name, string surname, int age)
+{
+    Console.WriteLine($"{name} - {surname} - {age}");
+}
+//WYWOŁYWANIE FUNKCJI O TEJ SAMEJ NAZWIE, ALE INNYCH TYPACH
+  public void Show(int liczba)
+{
+    Console.WriteLine(liczba);
+}
+
+public void Show(string drink)
+{
+    Console.WriteLine(drink);
+}
+
+public int Show()
+{
+    return 1;
+}
+  //////////////////////////////////////////////////////////////////////// FUNKCJA MAIN
+    public static void Main(string[] args) //metoda
+    {
+      //DODAWANIE
+        var p = new Program();
+        //to samo
+        //Program p = new Program();
+        int wynik = p.Dodaj(4, 5);
+        Console.WriteLine($"Wynik dodawania 4+5 = {wynik}");
+        p.Powitaj();
+    //WPISYWANIE DANYCH
+      var p = new Program();
+        p.showInfo("Asia", "Aśkowska", 33);
+        p.showInfo("Nowak", "Jan", 21);
+        //dopuszczone jest zamienienie danych, bo przez przypadek da się zamienić imie i nazwisko
+        p.showInfo(age: 12, surname: "Kowalski", name:"Janusz");
+        //nie dojdzie do błędu
+      //WYWOŁYWANIE FUNKCJI O TEJ SAMEJ NAZWIE, ALE INNYCH TYPACH
+        var p= new Program();
+        p.Show(2);
+        p.Show("cola");
+        Console.WriteLine(p.Show());
+
+    }
+}
+///////////////////////////////////////////////////////////////////////////Żeby działało trzeba zakomentować albo powyżej albo poniżej
+//klasa 1
+class UFOTracker{
+    public static void ReportSighting(string location, DateTime time)
+    //metoda statyczna- można ją wywołać bez potrzeby tworzenia metody
+    {
+        Console.WriteLine($" [Ufo alert] Obserwowane UFO w lokalizacji {location}");
+        Console.WriteLine($"Czas: {time:yyyy-MM-dd HH:mm:ss}");
+    }
+}
+//klasa 2
+internal class Program{
+public static void Main(string[] args) 
+    {
+        UFOTracker.ReportSighting("Pustkowie Strefa 51", DateTime.Now);
+        //możemy se odwoływać do metod z innej klasy tylko jeżeli sa one STATIC !!
+        //GDYBY W KLASIE ufotRACKER BYŁA METODA bez STATIC PISZEMY JAK PONIŻEJ, ŻEBY SIĘ ODWOŁAĆ 
+        //var tracker = new UFOTracker();
+        
+    }
+}
