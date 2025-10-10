@@ -55,7 +55,8 @@ fun main(){
                 showAllProduct(productsList, productsPrice)
             }
             "3"->{
-                for(int i=0; i<productsPrice; )
+                val suma = showSum(priceList)
+
             }
 
         }
@@ -76,6 +77,11 @@ fun main(){
         }*/
         } while (userChoice != "4")
 }
+
+fun showSum (priceList: MutableList<Int>){
+    
+}
+
 
 fun addPrice(price: Int, priceList: MutableList<Int>) {
 
