@@ -1,0 +1,69 @@
+//dwa pliki: index.ts i hello.js
+// KONSOLA
+//ls- pokazuje pliki
+//node nazwa.pliku- wypisuje to co ma konsola wypisać
+// npm- node package management
+//npm init- wszystkie entery, potem y/n
+//npm install typescript- też dla klienta będzie, ale tego nie potrzebuje, bo przegladarka nie rozumie
+//npm install --save-dev typescript - --save-dev oznacza, że jest to instalka dla nas, a klient nie bedzie jej sciagać
+//tsc- typescript compiler
+//ts-node- uruchamianie w locie
+//po wpisaniu npm install dopiero nam pobierze daną biblioteke do projektu !! czyli pry każdym projekcie trzeba
+/*
+npm install
+nom install --save-dev ts-node
+ts-node src/index.ts
+npm run build
+npm run start
+// otwieramy src/package.json i w 
+"scripts":{
+"build": "tsc",
+"start": "tsc-node src/index.ts"
+// po przecinku możemy dodawać ile chcemy odprowadzeń do nazw, które aktywujemy w konsoli: npm run nazwa
+}*/
+//1. typy danych- jesteśmy w ts
+let message:string = "Hello ts";
+console.log(message);
+message = "Wtaj w ts";
+console.log(message);
+message = 10;// błąd- nie może być
+
+
+const pi= 3.14;
+console.log(pi);
+pi = 3.1415926;// błąd- nie można zmienić wartości const
+
+let age:number =28;
+let userName = "Michał";
+username = 23// niejawnie stwierdziło, ze będzie to string i również będzie błąd
+let isLoggedOut: boolean = false;
+
+let cars: string[]=["subaru", "porsche", "bmw"]//mogą byc tylko stringi
+let fruits: (string|number)[] = ["apple", "banana", "orange", 10];//może być string lub number
+
+//obiekty w ts
+const point = {x:11, y: 22};
+const points: {x: number, y: number} = {x: 1, y: 2};
+
+const point = {x:11, y: 22};
+const points: {x: number, y: number} = {x: 1, y: 2};
+console.log(point)
+point.x = -978
+console.log(point)
+point = {x: 11, y: 12};
+//przy const można zmieniać poszczególne fragmenty, a nie cały obiekt, bo można zmieniać zawartość, a nie wolno referencji, bo const dotyczy referencji
+
+let point = {x:11, y: 22};
+console.log(point)
+point.x = -978
+console.log(point)
+point = {x: 12, y: 19};
+console.log(point)
+
+const boys: string[] = ["Bolek", "Lolek"]
+boys.push("Tola")
+boys[0] = "Super Bolek"
+console.log(boys)
+
+
+
