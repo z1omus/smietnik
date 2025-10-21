@@ -1,0 +1,155 @@
+using System.Diagnostics.CodeAnalysis;
+
+internal class Program
+{
+    //1
+    static int Dodaj(int a, int b)
+    {
+        return a + b;
+    }
+
+    static int Dodaj(int a, int b, int c)
+    {
+        return a + b + c;
+    }
+    //2
+    static double PoleKwadratu(double a)
+    {
+        return a * a;
+    }
+    static double Pole(double a)
+    {
+        return a * a;
+    }
+    static double PoleKwadratu(double a, double b)
+    {
+        return a * b;
+    }
+
+    static double Pole(double a, double b)
+    {
+        return a * b;
+    }
+    //3
+    static bool CzyParzysta(int x)
+    {
+        if (x % 2 == 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    //4
+    static int SumaTablicy(int[] tablica)
+    {
+        int suma = 0;
+        for (int i = 0; i < tablica.Length; i++)
+        {
+            suma += tablica[i];
+        }
+        return suma;
+    }
+
+    static double SredniaTablicy(int[] tablica)
+    {
+        double srednia = 0;
+        for (int i = 0; i < tablica.Length; i++)
+        {
+            srednia += tablica[i];
+        }
+        return srednia/tablica.Length;
+    }
+    //5
+    static void WyswietlListe(List<string> lista)
+    {
+        foreach(var item in lista)
+        {
+            Console.WriteLine(item);
+        }
+    }
+    //6
+    static int Silnia(int n)
+    {
+        int silnia = 1;
+        for (int i = 1; i <= n; i++)
+        {
+            silnia = silnia * i;
+        }
+        return silnia;
+    }
+    //7
+    static string NaDuzeLitery(string tekst)
+    {
+        string duzymi= tekst.ToUpper();
+        return duzymi;
+    }
+    //8
+    static int Max(int a, int b)
+    {
+        if (a > b)
+        {
+            return a;
+        }
+        else
+        {
+            return b;
+        }
+    }
+
+    static int Max(int a, int b, int c)
+    {
+        if (a != b && a != c && b != c)
+        {
+            if (a > b && a > c)
+            { return a; }
+            else if (b > a && b > c)
+            { return b; }
+            else if (c > a && c > b)
+            { return c; }
+        }
+        else if (a == b)
+        {
+            if (a > c)
+            { return a; }
+            else { return c; }
+        }
+        else if (a == c)
+        {
+            if (a > b) 
+            { return a; }
+            else { return b; }
+        }
+        else { return a; }
+
+        return 0;
+    }
+    
+    public static void Main(string[] args)
+    {
+        //1
+        Console.WriteLine(Dodaj(3, 5, 12));
+        Console.WriteLine(Dodaj(3, 2));
+        //2
+        Console.WriteLine(PoleKwadratu(2));
+        Console.WriteLine(PoleKwadratu(4, 5));
+        Console.WriteLine(Pole(2));
+        Console.WriteLine(Pole(4, 5));
+        //3
+        Console.WriteLine(CzyParzysta(2));
+        //4
+        Console.WriteLine(SumaTablicy([1, 2, 4, 3, 54]));
+        Console.WriteLine(SredniaTablicy([1, 2, 4, 3, 54]));
+        //5
+        WyswietlListe(["banan", "mango", "awokado"]);
+        //6
+        Console.WriteLine(Silnia(7));
+        //7
+        Console.WriteLine(NaDuzeLitery("eluwina"));
+        //8
+        Console.WriteLine(Max(7, 4));
+        Console.WriteLine(Max(7, 4, 146));
+    }
+}
