@@ -1,0 +1,117 @@
+package com.example.projekt1
+//funkcja strzałkowa bez parametrów
+val powitaj = { println("Hejka")}
+
+val dodaj = {a:Int, b:Int -> a+b};
+//funkcja nie musi być w funkcji main 
+
+val maks = {x:Int, y:Int -> if(x>y) x else y}
+
+var x: Int = 10
+var y: Double = 10.0
+var dodaj: (Int, Int) -> Int  = {a: Int, b: Int -> a+b};
+//dodaj: (Int, Int) -> Int - ogólne - np. uczeń technikum
+//a: Int, b: Int -> a+b - zdefiniowane - np. ktoś z imienia i nazwiska
+val podziel: (Double, Int) -> Double = {c, b -> c/b};
+//przy działaniach jak spotyka sie  Double i Int to Int jest defaultowo konwertowany na Double
+//TRZEBA WTEDY ZMIENIĆ ZA STRZAŁKĄ Double
+
+//////////////////////////FUNKCJA WYŻSZEGO RZĘDU
+//funkcje wyższego rzędu - funkcja, która ma w sobie funkcję
+//przyjmuje inną funkcję za swój argument
+
+fun operujNaLiczbach(a: Int, b:Int, operacja: (Int, Int)-> Int): Int{
+
+    return operacja(a,b)
+}
+val funkcja: (Int, Int, (Int, Int)->Int) -> Int = {a, b, op -> op(a, b)};
+
+
+fun main(){
+    powitaj()
+    //funkcja strzałkowa- wyrażenie lambda
+    val simpleArrowFunction = { }
+    println(simpleArrowFunction)
+    
+    //val dodaj = {parametry->co ma być zwrócone}
+    val wynik = dodaj(10, 20);
+    println(wynik)
+    
+    println(maks(33, 1234))
+
+    ///////////////////////////////////IT
+    val podwojeniezItInput:(Int)->Int = {it-> it*2}
+    //powyżej może byc jakakolwiek nazwa zmiennej
+    val podwojenieBEZItInput:(Int)->Int = {it*2}
+    //zawsze musi być IT
+
+    val suma = operujNaLiczbach(10, 20, {x, y -> x+y});
+    println(suma)
+    val suma1 = operujNaLiczbach(10, 20){x,y->x+y}
+    //TO SAMO
+    println(operujNaLiczbach(10, 20) {p,q -> p/q} ) ;
+
+    /////////////////////FILTER
+    val liczby = listOf(1,2,3,4,5,6,7,8,9,10)
+    //lista jest obiektem
+    val parzyste = liczby.filter( { it%2==0 })
+    //filter jest metodą, czy funkcją , którą potrafi wykonywać obiekt
+    //liczby.filter(predicate = {num -> num%2==0})- pierwotny wzór- filter oczekuje funkcji strzałkowej
+    //powyższy przykład sprawdza dla każdego argumentu daną funkcję
+    //num=1 -> 1 % 2 == 0 false
+    //num=2 -> 2% 2 == 0 true itd. i te wartości, gdzie wyszło true będą w nowej liście
+    //jeżeli funkcja strzałkowa jest ostatnim argumentem/ wywołaniem to mozna ją wywalić za nawias
+    //czyli liczby.filter(){num -> num%2==0}- a z powodu, że funkcja nie przyjmuje innych argumentuj niż funkcja, można opóścić nawias, więc wychodzi 
+    //liczby.filter{num -> num%2==0}
+    println(parzyste)
+    println(liczby)
+
+    val liczby = listOf(1,2,3,4,5,6,7,8,9,10)
+
+    val wiekszaOd5 = liczby.filter{it > 5}
+    println(liczby)
+    println(wiekszaOd5)
+
+    /////////////////////////MAPOWANIE
+    //przekształcenie- droga asfaltowa -> prosta kreska na kartce
+    //funkcja pobiera elementy z listy i przekształca je
+
+    val podwojenie = liczby.map(transform = {num -> num*2})
+    //ostatni argument jest funkcją - liczby.map{num -> num*2}
+    //musi byc it, bo w innym przzypadku program nie zna nazwy num itp.
+    //liczby.map{it ->it*2}
+    //
+    //nie sprawdza warunku, tylko przekształca każdy element
+    println(liczby)
+    println(podwojenie)
+    val jakoNapis = liczby.map({liczba -> "To jest liczba ${liczba+1}"})
+    println(jakoNapis)
+    //na wejściu surowe dane, na wyjściu fajne rzeczy, np. stringi
+    val jakoNapis = liczby.map{"To jest liczba ${it+1}"}
+    println(jakoNapis)
+
+    ////////////////////////////REDUCE
+    //reduce na wejsciu lista liczb, na wyjściu jedna wartość
+    //z wielu wartości schodzi do jednej wartości
+    //z mąki, wody, soli, drożdży wychodzi jedno ciasto na pizze
+
+    val suma: Int = liczby.reduce{akumulator, liczba -> akumulator+liczba}
+//akumuluje- zbiera w całość
+    /*
+    itercja 1:
+    ak=0, liczba=1 ->0+1=1, ak=1
+    iteracja 2:
+    ak=1, liczba=2 ->1+2=3, ak=3
+    iteracja 3:
+    ak=3, liczba=3 ->3+3=6, ak=6
+    iteracja 4:
+    ak=6, liczba=4 ->6+4=10, ak=10
+    iteracja 5:
+    ak=10, liczba=5 ->10+5=15, ak=15
+    koniec iteracji
+    zwraca wartość akumultora -> 15
+     */
+    println(suma)
+
+    
+}
