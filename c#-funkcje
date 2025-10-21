@@ -1,0 +1,63 @@
+internal class Program
+{
+  ///////////////////////////przeciążnie
+    public void ShowInfo(string imie, string wiek)
+    {
+        Console.WriteLine($"masz na imie {imie}, jesteś stary, bo masz {wiek} lat");
+    }
+
+    //poniżej jest metoda
+    void Show(int num)
+    {
+        Console.WriteLine($"wpisano liczbę {num}");
+    }
+
+    void Show(string num)
+    {
+        Console.WriteLine($"podano tekst: {num}");
+    }
+
+    void Show(string num1, int num2)
+    {
+        Show(num1);
+        Show(num2);
+    }
+
+    static void Show(int num)
+    {
+        Console.WriteLine($"wpisano liczbę {num}");
+    }
+
+    static void Show(string num)
+    {
+        Console.WriteLine($"podano tekst: {num}");
+    }
+
+    static void Show(string num1, int num2)
+    {
+        Show(num1);
+        Show(num2);
+    }
+  
+    public static void Main(string[] args)
+    {
+        var x = 10;
+        Console.Write("hello {0}", x);
+        //musi być template string, żeby wyświetliło się to
+
+        var p=new Program();
+        p.ShowInfo("Mściwór", "93");
+
+        //tworzymy obiekt danej klasy- w tym przypadku klasa Program
+        var p=new Program();
+        p.Show(99);
+        p.Show("Mościbora");
+        p.Show("Zygfryd", 67);
+
+        Show(99);
+        Show("Mościbora");
+        Show("Zygfryd", 67);
+        //statyczne funkcje wywołuje się tak o
+
+    }
+}
