@@ -1,0 +1,100 @@
+//program to obiekty, które wymieniają między sobą dane
+//żeby był obiekt trzeba tworzyć klasy
+//obiekty klasy mogę się różnić w szczegółach, ale mają te same zasady działania
+
+class Cakes{
+    //nawet pusta klasa domyślnie już dziedziczy po ogólnej, najbardziej podstawowej klasie 
+}
+class Cake{
+val flavour: String
+val layers: Int
+}
+//to samo
+class Cake(val flavour: String, val layers: Int){
+fun describe(){
+    //metoda obiektu
+    println("Ciasto o smaku $flavour ma $layers warstwy")
+}
+}
+
+//klasa przyjmuje wartości, ale nie tworzy cech obiektów
+//ŻEBY BYŁY CECHY MUSI BYĆ VAR ALBO VAL
+//class(flavour: String, layers: Int){}
+
+class Osoba{
+//możemy dodać domyślne wartości
+   var imie: String = "brak imienia"
+   var wiek: Int = 0
+   //właściwości obiektu klasy osoba
+
+    fun powitaj(){
+        println("Cześć, mam na imię $imie i mam $wiek lat")
+    }
+}
+//musimy dodać wartości
+class Osoba(val imie: String, var wiek: Int){
+
+    constructor(imie: String):this(imie, 15)
+    constructor():this("nieznane imię", 0)
+    
+    fun powitaj(){
+        println("Cześć, mam na imię $imie i mam $wiek lat")
+    }
+}
+
+class Car(val make: String, val model: String){
+    var year: Int? = null
+    constructor(make: String, model: String, year: Int): this(make, model){
+    this.year = year
+    }
+    constructor(): this("brak", "brak", 100)
+    fun about(){
+        println("auto marki $make, model $model, z roku $year")
+    }
+}
+
+fun main() {
+    //obiekt klasy Cakes
+    val cakes = Cakes()
+    println(cakes)
+
+    val cake=Cake("czekoladowy", 3)
+    val cake2=Cake("waniliowy", 2)
+    println("Ciasto o smaku ${cake.flavour} ma ${cake.layers} warstwy")
+    // do obiektu dostajemy sie przez - dot notacion
+    println("Ciasto o smaku ${cake2.flavour} ma ${cake2.layers} warstwy")
+
+//obiekty są jakieś i coś robią
+
+    cake.describe()
+    cake2.describe()   
+
+val o1 = Osoba()
+    o1.powitaj()
+    o1.imie = "Grzybek"
+    o1.wiek=2
+    o1.powitaj()
+val o2 = Osoba()
+    o2.powitaj()
+    println(o1)
+    //zajmuja 2 różne miejsca w pamięci
+    println(o2)
+
+//konstruktor- konstruuje obiekty i przypisuje do ich pól dane
+
+    val o1 = Osoba("Grzybek", 2)
+    o1.powitaj()
+    val o2 = Osoba("Wiatropęd", 99)
+    o2.powitaj()
+val o3 = Osoba("Jan")
+    o3.powitaj()
+    val o4 =Osoba()
+    o4.powitaj()
+
+    val car1 = Car("Honda", "Civic")
+    val car2 = Car("Toyota", "Corolla", 2020)
+    var car3 = Car()
+    car1.about()
+    car2.about()
+    car3.about()
+}
