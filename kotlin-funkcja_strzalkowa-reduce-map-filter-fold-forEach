@@ -1,4 +1,8 @@
 package com.example.projekt1
+//najprostsza funkcja strzałkowa 
+//val myFun: {}
+//val myFun: (Int)->Int = {a->a*a}
+
 //funkcja strzałkowa bez parametrów
 val powitaj = { println("Hejka")}
 
@@ -97,6 +101,11 @@ fun main(){
 
     val suma: Int = liczby.reduce{akumulator, liczba -> akumulator+liczba}
 //akumuluje- zbiera w całość
+
+    val nums = listOf(1,2,3,4,5)
+    val sum = nums.reduce{acc, n -> acc+n}
+    println(sum)
+
     /*
     itercja 1:
     ak=0, liczba=1 ->0+1=1, ak=1
@@ -112,6 +121,24 @@ fun main(){
     zwraca wartość akumultora -> 15
      */
     println(suma)
+//w liście początkowej nic się nie zmienia- zmiany są zapisywane gdzie indziej
+    ///////////////////////////FOLD
+    //fold to reduce, w którym możemy ustalić od jakiej wartości akulumatora zaczynamy
+    val newSum = nums.fold(10, {acc, n->acc+n})
+    println(newSum)
 
-    
+    /////////////////////////////FOReACH
+    //lista.forEach- 
+    nums.forEach { println(it) }
+    /* to samo
+    for(n in nums){
+    println(n)
+    }
+     */
+//iteracja po indexach i wartościach na raz
+    val fruits  = mutableListOf<String>("orange","apple","banana")
+    fruits.forEachIndexed { index, fruit ->
+        println("Owoc $fruit jest pod indexem $index")
+    }
+    //fruits.forEachIndexed{index, element -> wyrażenie}
 }
