@@ -1,0 +1,14 @@
+//abstrachowanie- omijanie szczegółów, skupianie sie tylko na ogóle
+//mamy ciasto- nie interesuje nas czy czekoladowe czy sernik
+
+//enkapsulacja- hermetyzacja
+//ukrywanie szczegółów
+//nie interesuje nas z czego i jak kucharz robi ciasto na pizze
+
+//dziedziczenie
+//ogólny przepis na robienie obiektów
+//dziedziczymy dany przepis i dodajemy swoje rzeczy
+//w oparciu o babci przepis na ciasto drożdżowe robimy autorskie ciasto drożdzowe ze śliwkami
+
+//polimorfizm
+//przychodzisz do pizzerii i mówisz "chce pizze", i ją dostajesz- nie dajesz żadnych szczegółów
