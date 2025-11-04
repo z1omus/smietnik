@@ -92,6 +92,7 @@ val o3 = Osoba("Jan")
     o4.powitaj()
 
     val car1 = Car("Honda", "Civic")
+    //val tu przechowuje referencje do obiektu, więc nie może zmienić się adresu docelowego, ale można zmieniać dane pod adresem
     val car2 = Car("Toyota", "Corolla", 2020)
     var car3 = Car()
     car1.about()
