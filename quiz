@@ -1,0 +1,101 @@
+using System.Diagnostics.CodeAnalysis;
+using static System.Console;
+internal class Program
+{
+    static public Dictionary<string, string[]> pytaniaIOdpowiedzi = new()
+    {
+        { "Ile skrzydeł ma ptak", ["10", "20", "2", "0"] },
+        { "Jak długo spać", ["100", "8", "300", "1"] },
+        { "Gdzie kupujemy chleb?", ["W aptece", "W piekarni", "W kinie", "W muzeum"] },
+        { "Który miesiąc ma najmniej dni?", new[] { "Luty", "Maj", "Listopad", "Sierpień" } },
+        { "Co robimy parasolem?", ["Jemy", "Piszemy", "Chronimy się przed deszczem", "Siedzimy"] },
+        { "Jakim środkiem transportu porusza się po torach?", new[] { "Samochód", "Pociąg", "Rower", "Motor" } },
+        { "Jakie zwierzę daje mleko?", new[] { "Krowa", "Koń", "Owca", "Pies" } },
+        { "Co świeci na niebie w dzień?", new[] { "Księżyc", "Słońce", "Gwiazdy", "Samoloty" } },
+        { "Gdzie mieszkają ryby?", new[] { "Na pustyni", "W lesie", "Na drzewie", "W wodzie", } },
+        { "Czym piszemy po papierze?", ["Łyżką", "Nożem", "Długopisem", "Patykiem"] }
+
+    };
+    static public Dictionary<string, int> pytaniaIPoprawneOdpowiedzi = new()
+    {
+        { "Ile skrzydeł ma ptak", 2 },
+        { "Jak długo spać", 1 },
+        { "Gdzie kupujemy chleb?", 1 },
+        { "Który miesiąc ma najmniej dni?", 0 },
+        { "Co robimy parasolem?", 2 },
+        { "Jakim środkiem transportu porusza się po torach?", 1 },
+        { "Jakie zwierzę daje mleko?", 0 },
+        { "Co świeci na niebie w dzień?", 1 },
+        { "Gdzie mieszkają ryby?", 3 },
+        { "Czym piszemy po papierze?", 2 }
+
+    };
+    public static void Main(string[] args)
+    {
+        List<string> wylosowane = WylosujPiecPytan(pytaniaIOdpowiedzi);
+
+        var iloscpytan = wylosowane.Count;
+        var iloscPoprawnychOdpowiedzi = 0;
+        while (iloscpytan > 0)
+        {
+            var pierwszeWylosowanePytanie = wylosowane[0];
+            PokazOdpowiedzi(wylosowane[0], pytaniaIOdpowiedzi[pierwszeWylosowanePytanie]);
+            bool czyPoprawna = int.TryParse(ReadLine(), out int wyborGracza);
+            if (!czyPoprawna)
+            {
+                Write("musisz wpisac liczbe 1..4");
+            }
+            else
+            {
+                var czyPoprawnaOdpowiedz = sprawdzOdpowiedz(pierwszeWylosowanePytanie, wyborGracza);
+                if (czyPoprawnaOdpowiedz)
+                {
+                    WriteLine("dobrze");
+                    iloscPoprawnychOdpowiedzi++;
+                }
+                else
+                {
+                    WriteLine($"zle, poprawna odpowiedz to {pytaniaIPoprawneOdpowiedzi[pierwszeWylosowanePytanie] + 1}");
+                }
+            }
+
+            iloscpytan--;
+        }
+        
+        var wynikProcentowy = (iloscPoprawnychOdpowiedzi / 5.0) * 100.0;
+        WriteLine($"Ilość poprawnych odpowiedzi to {iloscPoprawnychOdpowiedzi}, procentowo {wynikProcentowy}");
+    }
+
+    public static bool sprawdzOdpowiedz(string pytanie, int wyborGracza)
+    {
+        var poprawnaOdpowiedz = pytaniaIPoprawneOdpowiedzi[pytanie];
+        return poprawnaOdpowiedz == wyborGracza-1;
+    }
+    public static void PokazOdpowiedzi(string pytanie, string[] odpowiedzi)
+    {
+        Console.WriteLine($"pytanie: {pytanie}");
+        Console.WriteLine("odpowiedzi: ");
+        var nrOdpowiedzi = 1;
+        foreach (var odpowiedz in odpowiedzi)
+        {
+            Console.WriteLine($"{nrOdpowiedzi} {odpowiedz}");
+            nrOdpowiedzi++;
+        }
+    }
+    public static List<string> WylosujPiecPytan(Dictionary<string, string[]> slownikPytan)
+    {
+        var wszystkiePytania = pytaniaIOdpowiedzi.Keys.ToList();
+        var wylosowane5Pytan = new List<string>();
+        var random = new Random();
+        while (wylosowane5Pytan.Count < 5)
+        {
+            var los = random.Next(0, wszystkiePytania.Count);
+            if (!wylosowane5Pytan.Contains(wszystkiePytania[los]))
+            {
+                wylosowane5Pytan.Add(wszystkiePytania[los]);
+            }
+        }
+        return wylosowane5Pytan;
+    }
+
+}
