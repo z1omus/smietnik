@@ -1,9 +1,10 @@
 package com.example.projekt2
 
 class Osoba{
-    var imie: String = "Nieznane"
-//lateinit var imie: String
+    //var imie: String = "Nieznane"
+lateinit var imie: String
 //lateinit pozwala za późniejsze przypisanie wartości- nie będzie ostatecznie nulla
+// PRZY lateinit MUSI BYĆ var, bo będziemy zmieniać wartośc z nulla na daną wartość
     //metoda
     fun inicjalizujeImie(noweImie: String){
         imie = noweImie
@@ -38,6 +39,13 @@ fun main(){
     o2.imie = "Zdzisiek"
     println(o2.imie)
     println(o2.wiek)
+//nie zadziała
+   /* 
+    println(o.imie)
+    o.powitaj()
+    */
+    o.inicjalizujeImie("Heniek")
+    o.powitaj()
 
 
 val prostokat = Prostokat(szerokosc = 10, wysokosc=5)
