@@ -1,0 +1,48 @@
+package com.example.projekt2
+
+class Osoba{
+    var imie: String = "Nieznane"
+//lateinit var imie: String
+//lateinit pozwala za późniejsze przypisanie wartości- nie będzie ostatecznie nulla
+    //metoda
+    fun inicjalizujeImie(noweImie: String){
+        imie = noweImie
+    }
+    fun powitaj(){
+        if(::imie.isInitialized){
+            println("Cześć, mam na imię $imie")
+        }else{
+            println("Imie nie ma żadnej wartości")
+        }
+    }
+    var wiek: Int = 0
+    //w ciele klasy piszemy właściwości- czyli w tel wykonuje się getter i setter
+        set(value){
+            if(value >=0) field = value else println("Wiek nie może mieć wartości poniżej 0")
+        }
+}
+class Prostokat(var szerokosc: Int, var wysokosc: Int){
+    val pole: Int
+        //jawnie określamy jak ma działać get
+        get() = szerokosc * wysokosc
+}
+fun main(){
+    val o = Osoba()
+    o.imie = "Jan"
+    o.wiek = -1
+    //setter- przypisywanie/wpisywanie/zmienianie wartości
+    println(o.imie)
+    //getter- wyświetlanie
+    println(o.wiek)
+    val o2 = Osoba()
+    o2.imie = "Zdzisiek"
+    println(o2.imie)
+    println(o2.wiek)
+
+
+val prostokat = Prostokat(szerokosc = 10, wysokosc=5)
+    println(prostokat.pole)
+    prostokat.szerokosc = 100
+    prostokat.wysokosc = 30
+    println(prostokat.pole)
+}
