@@ -1,0 +1,124 @@
+console.log("Happy developing")
+// npx ts-node index.ts - znajdź i wykonaj to co jest w index.ts
+//npm run dev (dev w package.json w "scripts":{ "dev": "npx ts-node src/index.ts"})
+//funkcja to maszynka do mielenia
+//wrzucamy argumenty do parametrów i wychodzi wynik, albo nic nie wychodzi
+
+// nie ma rozróżniania na liczby stało i zmiennoprzecinkowe
+function suma(a: number, b: number) {
+  return a+b;  
+}
+const sum:(a:number, b:number) => number = (a:number, b:number):number=>a+b;
+const square:(a:number)=>number=(a: number):number=>a*a;
+console.log(square(10));
+
+//const square:(a:number)=>number=(a: number):number=>(domyślnie) return a*a
+const createPerson:(name: string, age: number)=>void=(name: string, age: number) => ({
+    name: name, age: age
+}
+)
+console.log(createPerson("Bolek", 8))
+
+
+type Person = {name: string; age: number};
+const createPerson:(name: string, age: number)=>Person =(name: string, age: number):Person => ({
+    name: name, age: age
+}
+)
+console.log(createPerson("Bolek", 8))
+
+const makeArray= (p:number, e: number):number[]=>[p, e];
+console.log(makeArray(2,4))
+/////////////////////////////////////CALLBACK
+//drukowanie danych w koncoli to nie jest zwracane wartości!!!
+
+function powiedzCzesc(imie, callback) {
+  console.log("Cześć, " + imie + "!");
+  callback();
+}
+
+let myCallback = () => console.log("Miło cię widzieć") ;
+
+powiedzCzesc("Ola", myCallback);
+
+/////////////////////////////////////MAP
+const nums = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+const newNums = nums.map((n)=> n+100)
+//jeżeli jest 1 argument na wejściu i nie podaję typu 
+const newNum = nums.map(n=>n+100)
+
+console.log(nums)
+console.log(newNums)
+
+type Character ={
+    //struktura wewnętrzna
+    id: number,
+    name: string,
+    profession: string,
+    level: number,
+}
+const characters: Character[] = [
+    {id:1, name: "Gerald", profession: "Wiedźmin", level: 45},
+    {id:2, name: "Yennefer", profession: "Czarodzieja", level: 45},
+    {id:3, name: "Jaskier", profession: "Bard", level: 20},
+]
+const description: string[] = characters.map((ch: Character)=> `${ch.name}, (${ch.profession}) - level: ${ch.level}`)
+console.log(description)
+
+type Item = {
+    id: number,
+    name: string,
+    price: number,
+}
+const items: Item[] = [
+    {id:1, name: "Srebrny miecz", price:1200},
+    {id:2, name: "Eliksir jaskółki", price:200},
+    {id:3, name: "Zbroja z Kaer Morhen", price:5200},
+]
+//margin- marża- procent po jakim sie sprzedaje od kupna
+const itemsWithMargin:Item[] = items.map((item: Item)=>({...item, priceWithMargin: item.price *1.2}))
+// ... bierze pojedynczy z rekord z item, a my jeszcze dodajemy cene z marżą
+console.log(itemsWithMargin)
+////////////////////////////////////FILTER
+const strongCharacters: Character[]= characters.filter(c => c.level >30)
+console.log(strongCharacters)
+
+const cheapItems: Item[]=items.filter(item=>item.price < 1000)
+console.log(cheapItems)
+
+
+//sito
+const nums:number[] = [1,2,3,4,5,6,7,8,9]
+const even:number[] = nums.filter(n => n%2===0)
+//nums.filter((n:number):boolean => n % 2 === 0)
+// === sprawdzanie torżsamości- ten sam typ od razu(bez konwersji) i ta sama wartość- najbezpieczniejsze
+console.log(even)
+///////////////////////////////////////FOREACH
+const fruits: string[] = ["apple", "banana", "orange"]
+fruits.forEach(fruit=>console.log(fruit))
+//skrót  fruits.forEach(console.log)
+fruits.forEach(console.log) // podaje wtedy indexy
+fruits.forEach((fruit: string, index:number)=> console.log(`fruit: ${fruit} pod indexem ${index}`));
+
+type User={
+    id:number;
+    name: string;
+    active: boolean;
+}
+const users: User[]=[
+    {id:1, name:"John", active:false},
+    {id:2, name:"Alice", active:true},
+    {id:3, name:"Bob", active:false},
+]
+function saveUserToApi(user: User){
+    console.log(`saving user ${user.name} with id ${user.id}...`)
+}
+users.forEach(user => {
+    if(user.active){
+        saveUserToApi(user)
+    }
+    else{
+        console.log(`skipping user ${user.name} with id ${user.id}...`)
+    }
+})
