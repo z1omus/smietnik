@@ -1,0 +1,194 @@
+///////////////////////////////////SOME()
+//pracuje wyłącznie na elementach danej list
+//jeżeli chociaż 1 element spełnia warunek to będzi true
+
+console.log("Happy developing")
+
+type User = {
+    id: number;
+    name: string;
+    role: "user" | "admin";
+}
+//łączenie typów name: string|int
+const users: User[] = [
+    {id: 1, name: "Jakub", role: "user"},
+    {id: 2, name: "Kenya", role: "admin"},
+    {id: 3, name: "Sam", role: "admin"},
+]
+
+const hasAdmin: boolean = users.some(u => u.role==="admin");
+console.log(hasAdmin);
+/////////////////////////////////////EVERY()
+//sprawdza czy każdy element listy spełnia warunek
+const hasAdmin: boolean = users.every(u => u.role==="admin");
+console.log(hasAdmin);
+////////////////////////////////////REDUCE()
+//redukuje wszystkie elementy do jednej wartości
+
+const prices: number[] = [100, 50, 25]
+
+const total: number = prices.reduce((acc, price)=>acc+price, 0)
+console.log(total)
+/*
+lista.reduce((acc, jakas_nazwa_o_redukowanej_liście)=>jakies działanie do acc, inicjowana_wartosc_na_poczatku)
+initialValue=0 , czyli akumulator przyjmuje wartość 0 początkowo
+
+działanie
+acc = 0, price=100 => acc=100
+acc = 100, price=50 => acc=150
+acc = 150, price=25 => acc=175
+ */
+ 
+const words: string[] = ["Hello", "World"]
+
+const sentence: string = words.reduce((acc, word)=>acc + " "+word, "Start: ")
+console.log(sentence)
+
+///////////////////////////////////////SORT()
+//w zależności jak się zmienia wartość
+const fruits = ["banana", "orange", "cherry"]
+fruits.sort()
+console.log(fruits)
+
+const nums = [1, 5, 2, 3, 134, 21, 4]
+const asc = nums.sort((a, b) => a - b)
+//jeżeli wynik odejmowania jest ujemny to przestawiamy liczby, a jeżeli dodatni lub równy to nic nie robimy
+//i każdą kolejną liczbę sprawdza
+console.log(asc)
+const desc = nums.sort((a, b) => b - a)
+console.log(desc)
+
+type User = {name:string, age: number};
+const users: User[] = [
+    {name:"John", age: 12},
+    {name:"Jack", age: 2},
+    {name:"Doe", age: 32},
+]
+const sortByAge = users.sort((a, b) =>a.age - b.age)
+console.log(sortByAge)
+
+//////////////przekształcenia w locie- główe zastosowanie funkcji callback
+const nums=[1,2,3,4,5,6,7,8,9];
+
+nums
+    .filter(num=>num%2===0)// [2, 4, 6, 8]
+    .map(num=>num+10)//[12, 14, 16, 18]
+    .forEach(num=>console.log(num)//[12, 14, 16, 18]
+  //to samo(tylko, dłużej = gorzej):
+const listF=nums.filter(num=>num%2===0)
+const listM=listF.map(num=>num+10)
+const listM.forEach(num=>console.log(num))
+///////////////////////////////////////////TEMPLATE STRINGS
+//trzeci rodzaj stringa pisze się go back... ``, które są pod klawiszem esc
+const hisName: string = "Oskar"
+const age: number = 12
+
+const mgs = `My name is ${hisName} and I am ${age}`
+console.log(mgs)
+
+const a = 10
+const b = 20
+console.log(`the sum of ${a} and ${b} is ${a+b}`)
+
+const abc = `sdgh
+sdghyjs-4fdjw
+wrthkjghlkfgdjhkl
+ffggrhhdh`
+//zapamiętuje rozdzielenie linijek- teksty wielowierszowe
+console.log(abc)
+
+//////////////////////////////////////////////////DESTRUKTURYZACJA
+//strukturyzacja- łączenie elementów w całość
+//destrukturyzacja- rozłączanie złączonych elementów na pojedyncze
+/////////////////////////////////////////////DESTRUKTURYZACJA LISTY
+const numbers: number[] = [123, 23, 51]
+//stara wersja:
+const a = numbers[0]
+const b = numbers[1]
+const c = numbers[2]
+//nowa wersja:
+const [d, e, f] = numbers;
+//znaki destrukturyzacji listy
+// = to znak przypisania w tym przypadku
+/*
+const a = 123
+const b = 23
+const c = 51
+*/
+console.log(a)
+console.log(b)
+console.log(c)
+console.log(d)
+console.log(e)
+console.log(f)
+const [g,,i] = numbers;
+console.log(g)
+console.log(i)
+
+const a = [10, 12]
+const [x, y=-1] = a
+//y=-1 domyślna wartość, gdyby w liście nie było zdefiniowanego y elementu
+console.log(x)
+console.log(y)
+
+const mojaLista = [10, 20, 426, 122, 422, 732]
+const [a, b, ...rest] = mojaLista
+//... reszta - rest może mieć jaką kolwiek nazwę
+console.log(a)
+console.log(b)
+console.log(rest)
+
+////////////////////////////////////////////////////DESTRUKTURYZACJA OBIEKTU
+type Person = {personName: string; age: number};
+const person: Person = {personName: 'Bob', age: 3};
+const {personName, age} = person;
+//przy destrukturyzacji MUSI być nazwa identyczna z nazwą właściwości obiektu
+//nie ma znaczenia kolejność, bo nie ma indexu jak w liście
+console.log(personName);
+console.log(age);
+
+//let zeby mozna było zmienić wartość zmiennej personName
+let {personName, age} = person;
+
+console.log(personName);
+console.log(age);
+personName = 'Alice';
+console.log(personName);
+
+//jeżeli jest pootrzeba zmiany nazwy to można to zrobić po :
+let {personName: imie, age: wiek} = person;
+//zajrzyj do obiektu person, znajdź właściwość, która się nazywa personName i weź tą wartość do zmiennej imie
+console.log(imie);
+console.log(wiek);
+
+type Person = {personName: string; age?: number};
+//znak zapytania- ta właściwość jest opcjonalna
+//wtedy można strorzyć poniższy przykład
+const person: Person = {personName: 'Bob'};
+
+console.log(personName);
+console.log(age);//wtedy wyświetla się undefined
+
+let {personName, age=-1} = person;
+//najlepiej dać -1, bo wtedy wiemy, że coś poszło nie tak
+
+type Address = {
+    city: string;
+    zip: string;
+}
+type Person ={
+    name: string;
+    address: Address;
+}
+const person: Person={
+    name: "Alice",
+    address: {
+        city: "Cudowny Olsztyn",
+        zip: "11-666"
+    }
+}
+
+const {name: personName, address: {city, zip}} = person
+console.log(personName)
+console.log(city)
+console.log(zip)
