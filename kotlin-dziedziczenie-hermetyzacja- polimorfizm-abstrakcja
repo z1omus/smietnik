@@ -1,0 +1,146 @@
+package com.example.projekt2
+////////////////////////DZIEDZICZENIE
+//dziedziczenie-jedna klasa pobiera z drugiej wszystkie metody i właściwości nsa które rodzic się zgadza(trzeba napisać open)
+
+open class Ufo(val shape: String){
+    open fun fly(){
+        //metody i właściwości są defaultowo final
+        println("Ufo o kształcie $shape leci przez niebo")
+    }
+}
+//otworzona klasa na dziedziczenie
+class SilverUfo: Ufo(shape="dysk"){
+    override fun fly() {
+        println("Srebrne ufo śmiga przez chmury z prędkością światła")
+    }
+    fun cloak(){
+        println("Srebrne ufo włączyło niewidzialność")
+    }
+}
+
+open class Zwierze(val gatunek: String){
+    //gatunek to właściwość
+    open val dzwiek: String = "Ogólny dźwięk"
+
+    open fun wydajDzwiek(){
+        println("$gatunek wydaje dźwięk: $dzwiek")
+    }
+}
+class Pies(gatunek: String): Zwierze(gatunek) {
+//gatunek to parametr funkcji, bo nie ma val/var
+    override val dzwiek: String = "Szczekanie"
+
+    override fun wydajDzwiek(){
+        println("$gatunek szczeka: $dzwiek")
+    }
+    fun machajOgonem(){
+        println("Pies macha ogonem")
+    }
+}
+
+
+//////////////////////////////////HERMETYZACJA
+//zamykamy coś przed oddziaływaniem z zewnątrz
+
+//jeżeli nie jest nic napisane, to jest to public, czyli z zewnątrz można się dostać i zmienić wartości
+class UfoEngine{
+    private var warpCoreTemperature: Int = 121
+    //nikt spoza klasy się nie dostanie do zmiany wartości np.
+
+    fun checkStatus():String{
+        return if(warpCoreTemperature<120) "Warp core staabilny" else "Uwaga: przegrzanie"
+
+    }
+
+    fun coolDown(){
+        warpCoreTemperature -= 10
+        //wewnątrz klasy można zmieniać nawet jeżeli jest private
+    }
+    fun showThis(){
+        println(this)
+    }
+    fun showCoreTemperature():Int{
+        return this.warpCoreTemperature
+        //this oznacza nazwę wskazującą na ten konkretny obiekt
+    }
+}
+////////////////////////////////////POLIMORFIZM
+open class Ufo(val shape: String){
+    open fun fly(){
+        println("Ufo $shape leci przez niebo")
+    }
+}
+class SilverUfo: Ufo(shape="dysk"){
+    //dziedziczenie SilverUfo jest dzieckiem, a Ufo rodzicem
+    override fun fly(){
+        println("Srebrne ufo śmiga z prędkością światła")
+    }
+}
+class GoldenUfo: Ufo(shape="trójkąt"){
+    override fun fly(){
+        super.fly()
+        println("Złote ufo przemyka cichaczem - $shape")
+    }
+}
+
+fun sendUfoToSky(ufo: Ufo){
+    ufo.fly()
+}
+/////////////////////////////////////ABSTRAKCJA
+//pomijamy szczegóły , a skupiamy się na ogóle
+//INTERFEJS- OGÓLNA STRUKTURA
+
+abstract class Pojazd(val marka: String){
+    abstract fun uruchomSilnik()
+    fun pokazMarke(){
+        println("Marka pojazdu to: $marka")
+    }
+}
+class Samochod(marka: String): Pojazd(marka){
+    override fun uruchomSilnik() {
+        TODO("Not yet implemented")
+    }
+
+}
+
+fun main(){
+//////////////////////////////DZIEDZICZENIE
+ val ufo = Ufo(shape="piłka")
+    ufo.fly()
+    val silverUfo = SilverUfo()
+    silverUfo.fly()
+    silverUfo.cloak()
+    //te same właściwości co rodzic, a dodatkowo jakieś szczegółowe cechy
+
+val z = Zwierze(gatunek="Ssak")
+    z.wydajDzwiek()
+    val p = Pies(gatunek="pies domowy")
+    p.wydajDzwiek()
+    p.machajOgonem()
+
+//////////////////////////////////HERMETYZACJA
+val ue = UfoEngine()
+    println(ue.checkStatus())
+    ue.coolDown()
+    println(ue.checkStatus())
+    println(ue.showCoreTemperature())
+    val u = UfoEngine()
+
+    //this odnosi się do każdego obiektu osobno, tak jakby się mówiło tu, przeszło 5m dalej i znowu tu
+    ue.showThis()
+    u.showThis()
+
+/////////////////////////////////////POLIMORFIZM
+val ufo = Ufo(shape="kula")
+    val sUfo = SilverUfo()
+    val gUfo = GoldenUfo()
+
+    val fleet = listOf<Ufo>(ufo, sUfo, gUfo)
+    //lista obiektów typu ufo
+
+    for(u in fleet){
+        sendUfoToSky(ufo=u)
+    }
+///////////////////////////////////ABSTRAKCJA
+}
+
