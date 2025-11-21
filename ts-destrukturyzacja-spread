@@ -1,0 +1,162 @@
+////////////////////////////////////////////////////DESTRUKTURYZACJA OBIEKTU
+type Person = {personName: string; age: number};
+const person: Person = {personName: 'Bob', age: 3};
+const {personName, age} = person;
+//przy destrukturyzacji MUSI być nazwa identyczna z nazwą właściwości obiektu
+//nie ma znaczenia kolejność, bo nie ma indexu jak w liście
+console.log(personName);
+console.log(age);
+
+//let zeby mozna było zmienić wartość zmiennej personName
+let {personName, age} = person;
+
+console.log(personName);
+console.log(age);
+personName = 'Alice';
+console.log(personName);
+
+//jeżeli jest pootrzeba zmiany nazwy to można to zrobić po :
+let {personName: imie, age: wiek} = person;
+//zajrzyj do obiektu person, znajdź właściwość, która się nazywa personName i weź tą wartość do zmiennej imie
+console.log(imie);
+console.log(wiek);
+
+type Person = {personName: string; age?: number};
+//znak zapytania- ta właściwość jest opcjonalna
+//wtedy można strorzyć poniższy przykład
+const person: Person = {personName: 'Bob'};
+
+console.log(personName);
+console.log(age);//wtedy wyświetla się undefined
+
+let {personName, age=-1} = person;
+//najlepiej dać -1, bo wtedy wiemy, że coś poszło nie tak
+
+type Address = {
+    city: string;
+    zip: string;
+}
+type Person ={
+    name: string;
+    address: Address;
+}
+const person: Person={
+    name: "Alice",
+    address: {
+        city: "Cudowny Olsztyn",
+        zip: "11-666"
+    }
+}
+
+const {name: personName, address: {city, zip}} = person
+console.log(personName)
+console.log(city)
+console.log(zip)
+
+type Person ={
+    name: string;
+    age: number;
+    job: string;
+}
+
+const ignacy: Person ={age: 16, job: "śpiący", name: "Ignacy"}
+
+const {name: userName, ...resztaZIgnacego} = ignacy;
+console.log(userName)
+console.log(resztaZIgnacego);
+
+type Person ={
+    name: string;
+    age: number;
+    job?: string;
+}
+function printPerson(person: Person){
+    console.log(`person: ${person.name}, age: ${person.age}, job: ${person.job}`);
+}
+//to samo tylko, że lepiej function printPerson({name, age, job}: Person){
+    console.log(`person: ${name}, age: ${age}, job: ${job}`);
+}
+
+const maciej: Person = {name: "Maciej", age: 16, job: "Uczeń"};
+printPerson(maciej)
+
+
+const students: Person[] = [
+    {name:"Piotr", age:16},
+    {name:"Dominika", age:16},
+    {name:"Kenya", age:16}
+]
+students.forEach((s: Person) => console.log(`uczeń ${s.name}, wiek ${s.age}`));
+//teraz będzie lepiej
+students.forEach(({name, age}) => console.log(`uczeń ${name}, wiek ${age}`));
+//w locie destrukturyzujemy
+//////////////////////////////////////////////SPREAD
+//spread- rozpakowujemy liste lub obiekt
+//wyciaga wszystkie właściwości z obiektu, albo wszystkie wartości z listy
+const frontend:string[] = ["HTML","React","CSS"]
+const backend:string[] = ["Node", "Express", "MongoDB"]
+
+//lista się będzie składać z dwóch list, a każda lista będzie zawierać wartości
+const full:string[][] = [frontend, backend]
+console.log(full)
+//lista będzie zawierać wartości wszystkich list w jednej liście
+const fullsack:any[] = [...frontend, ...backend]
+console.log(fullsack)
+const fullsack1:any[] = [...frontend,"Django",...backend]
+console.log(fullsack1)
+
+const nums:number[] = [12,3,5,4,3]
+//to będzie kopia
+const numsCopy: number[]=[...nums]
+//to będzie przypisanie wartosći do tej samej listy, która ma po prostu nadaną inną nazwę
+const nums2: number[] = numsCopy
+
+numsCopy.push(123456)
+console.log(nums)
+console.log(numsCopy)
+console.log(nums2)
+
+type User = {
+    name: string;
+    age: number;
+    city: string;
+}
+const user: User = {name:"Anna", age: 25, city: "Olsztyn"};
+const updateUser = {...user,city:"Kraków"}
+//drugi dopis nadpisał wartość city
+console.log(updateUser);
+console.log(user)
+
+const baseConfig = {apiUrl: 'https://localhost:8080', timeout: 500}
+const devConfig = {debug: true, timeout: 10000}
+const config = {...baseConfig, ...devConfig};
+console.log(config);
+//w koncowym obiekcie wartość powtarzanej wartości, będzie taka jak w ostatniej nadpisanej wartości
+///////////////////////////////////////REST
+//pakowanie wszystkiego do jednego czegoś tam
+function sum(...number:number[]):number{
+    console.log(number)
+    return number.reduce((acc:number, n)=>acc + n, 0)
+}
+console.log(sum(1,2,3))
+console.log(sum(23,455,6,7,7,8))
+console.log(sum(2,4,56,7,32,43,7))
+console.log(sum(1,2,3,56,7,254,5673,233,252,6423,32,43,7))
+
+const colors:string[] = ["green","blue","red","orange","yellow"];
+const [first, second, ...colorsRest]=colors;
+//rest operator, pierwszy wyciagamy, drugi wyciagamy, a reszte pakujemy razen
+console.log(first);
+console.log(second);
+console.log(colorsRest);
+
+const user = {name:"Anna", age:45, city:"Kozia Wólka", country:"Poland"}
+const {name, ...rest} = user;
+console.log(name)
+console.log(rest)
+
+const user = {name:"Anna", age:45, city:"Kozia Wólka", country:"Poland"}
+const {age, ...rest} = user;
+console.log(age)
+console.log(rest)
+//można bez kolejności określonej kolejności
