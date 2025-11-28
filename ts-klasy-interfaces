@@ -1,0 +1,221 @@
+class Osoba{
+    imie: string;
+    wiek: number;
+
+    constructor(name: string, age: number){
+        this.imie = name;
+        //this- wskazuje na ten konkrety obiekt
+        this.wiek = age;
+    }
+    //metoda
+    przedstawSie():string{
+        return `Cześć, mam na imię ${this.imie} i mam ${this.wiek} lat`;
+    }
+}
+const o1 = new Osoba("Jan", 17)
+console.log(o1.przedstawSie());
+const o2 = new Osoba("Kuba", 21)
+console.log(o2.przedstawSie());
+o2.wiek += 73;
+console.log(o2.przedstawSie());
+
+class Pojazd {
+    public marka: string;
+    //właściwość dostepna z zewnatrz. łatwo odczytac i łatwo zmienić
+    private predkosc: string;
+    //nikt nie zna z poza
+    protected typ: string;
+
+    //dostepne w drzewie dziedziczenia, tylko rodzina w dzrzewie zna właściwość
+
+    constructor(marka: string, predkosc: string, typ: string) {
+        this.marka = marka;
+        this.predkosc = predkosc;
+        this.typ = typ;
+    }
+
+    public jedz() {
+        console.log(`Jadę z prędkością ${this.predkosc} km/h`);
+    }
+}
+const ford = new Pojazd("Ford", "120", "Coupe")
+ford.jedz();
+const subaru = new Pojazd("Subaru", "100", "BRZ")
+subaru.jedz()
+
+class Gamer{
+    public name: string;
+    private xp: number;
+    constructor(name: string, xp: number) {
+        this.name = name;
+        this.xp = xp;
+    }
+    public gainXP(amount: number){
+        this.xp+=amount;
+    }
+    public getInfo():string{
+    return `${this.name} has ${this.xp} xp`;}
+}
+const g = new Gamer("Kuba", 100)
+console.log(g.getInfo());
+g.gainXP(50)
+console.log(g.getInfo());
+
+class Gamer1{
+    constructor(public name: string,
+                private xp: number,
+                readonly level: number = 9834){}
+}
+const o = new Gamer("Ada", 23)
+console.log(o.level)
+
+//klasa abstrakcyjna- klasa, która nie może mieć obiektów
+abstract class Figura{
+    abstract obliczPole():number
+}
+class Kolo extends Figura{
+    constructor(private promien: number){
+        super();
+    }
+    obliczPole(): number{
+        return Math.PI * this.promien **2;
+    }
+}
+const kolo = new Kolo(5)
+console.log(`${kolo.obliczPole().toFixed(2)}`)
+
+
+/////////////////INTERFACE
+interface Osoba{
+    imie: string;
+    wiek: number;
+    miasto?: string;
+    readonly rok: number;
+    //nie będzie można przypisać nowej wartości
+
+}
+const osoba: Osoba = {imie: "Janek", wiek: 17, miasto: "Olsztyn", rok: 2023}
+//zawsze musi być tyle wypełnionych wartości ile zostało zdefiniowanych
+console.log(osoba)
+osoba.imie = "Kuba";
+console.log(osoba)
+//webstorm wyświetli zmienioną wartość, ale w konsoli wyjdzie problem kompilacji
+npm i -D ts-node
+ts-node src/index.ts
+
+
+interface RetroGame{
+    title: string;
+    platform: string;
+    rating: number;
+}
+function printGame(game):void{
+    console.log(`${game.title} by ${game.platform} is rated ${game.rating}`);
+}
+const ufo = {nazwa:"UFO"}
+printGame(ufo)
+//przeszło na js, który łykni cokolwiek mu się napisze i w przypadku prblemu pisze undefined i leci dalej
+function printGame(game: RetroGame):void{
+    console.log(`${game.title} by ${game.platform} is rated ${game.rating}`);
+}
+const game: RetroGame={
+    title: "UFO",
+    platform: "PS2",
+    rating: 8.5,
+}
+printGame(game)
+
+interface DodajFunc{
+    (a:number, b:number):number;
+}
+const dodaj: DodajFunc = (x, y) => x+y
+//strzałkowo można zapisać
+console.log(dodaj(2, 4));
+
+//klasa implementuje interface - implements
+//klasa dziedziczy po klasie - abstract
+
+interface Latajacy{
+    lataj():void;
+}
+class Cat implements Latajacy{
+    lataj(){
+        console.log("kot leci");
+    }
+}
+const cat = new Cat();
+cat.lataj()
+
+
+interface HasSummary{
+    getSummary(): string;
+}
+class Book implements HasSummary{
+    constructor(
+        public title: string,
+        public author: string,
+        public pages: number
+    ){}
+    getSummary(): string {
+        return `${this.title} by ${this.author} has ${this.pages} pages`;
+    }
+}
+const zbrodniaIKara = new Book("Zbrodnia i kara", "Dostojewski", 263)
+console.log(zbrodniaIKara.getSummary());
+
+class MyEvent implements HasSummary{
+    getSummary():string{
+        return "to jest wydarzenie"
+    }
+}
+const myEvent = new MyEvent();
+myEvent.getSummary();
+//może dziedziczyć po jedne klasie, ale mieć wiele interfaceów
+
+interface CanAstSpell{
+    mana: number,
+    castSpell(spellName:string):void
+}
+interface CanTakeDamage{
+    hp: number,
+    takeDamage(amount: number):void
+}
+class Wizard implements CanAstSpell, CanTakeDamage{
+    constructor(
+        public name: string,
+        public hp: number,
+        public mana: number,
+    ){}
+
+    castSpell(spellName: string): void {
+        if(this.mana <= 0){
+            console.log("Nie masz mocy!");
+            return;
+        }
+        this.mana-=10
+        console.log(`${this.name} castuje ${spellName}, mana ${this.mana}`);
+    }
+
+    takeDamage(amount: number): void {
+        this.hp -= amount;
+        console.log(`${this.name} takeDamage ${this.hp} hp`);
+    }
+}
+
+const oliwier = new Wizard("Oliwier", 30, 40)
+oliwier.castSpell("Magiczna rzecz")
+oliwier.castSpell("Magiczna rzecz")
+oliwier.castSpell("Magiczna rzecz")
+oliwier.castSpell("Magiczna rzecz")
+oliwier.castSpell("Magiczna rzecz")
+oliwier.takeDamage(10);
+oliwier.takeDamage(5);
+oliwier.takeDamage(10);
+oliwier.takeDamage(5);
+oliwier.takeDamage(10);
+oliwier.takeDamage(5);
+oliwier.takeDamage(10);
+oliwier.takeDamage(5);
+//i po Oliwierze...
+
+
