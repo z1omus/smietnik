@@ -1,0 +1,25 @@
+//moduły to podzielenie aplikacji na oddzielne pliki, każdy plik spełnia jakąś odpowiedzialność- 1 plik, 1 zadanie
+//moduł to plik .ts- musi mieć jakies eksport, wystawiać jakąs wartość
+
+////////////////////////////////////////plik math.ts
+export function add(a: number, b: number) {
+    return a + b;
+}
+export const PI = 3.14
+//bez export jest cos typu private, tylko w tym pliku mogę korzystać
+//z export jest publiczna dostępna na całą aplikację
+
+const rok = 1984
+//rok jest prywatny
+
+export const showYear = () => rok
+//funkcja, która zwraca 'prywatną zmienną'
+
+////////////////////////////////////////plik index.ts
+import {add, PI, showYear} from './math'
+
+console.log(add(10, 20));
+console.log(PI)
+console.log(showYear())
+//zmienna rok dalej będzie prywatna
+
