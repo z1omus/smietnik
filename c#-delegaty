@@ -1,0 +1,134 @@
+//---------konferencja------------------
+class Participant
+{
+    public string Name { get; set; }
+    public Participant(string name)
+    {
+        Name = name;
+    }
+
+    public void OnConferenceStarted()
+    {
+        Console.WriteLine($"{Name} jest na sali");
+    }
+}
+
+
+class ConferenceOrganizaer
+{
+    public event Action ConferenceStarted;
+
+    public void StartConference()
+    {
+        Console.WriteLine("Starting Conference...");
+        ConferenceStarted?.Invoke();
+    }
+
+}
+
+internal class Program
+{
+    /*
+    //---------operacja----------
+    //public delegate int Operacja(int a, int b);
+
+    //---------message---------
+    public delegate void ShowMessage(string message);
+
+    public static void Greetings(string msg)
+    {
+        Console.WriteLine($"Powitanie: {msg}");
+    }
+
+    public static void Goodbye(string g)
+    {
+        Console.WriteLine($"Pożegnanie: {g}");
+    }
+    //-----------powitanie----------
+    public delegate void DisplayMessage(string message);
+
+    public static void Display(string text, DisplayMessage display)
+    {
+        display(text);
+    }
+    public static void DisplayGreetings(string p)
+    {
+        Console.WriteLine($"Powitanie: hello {p}");
+    }
+
+    public static void DisplayGoodbye(string m)
+    {
+        Console.WriteLine($"Pożegnanie: Goodbye {m}");
+    }*/
+public static void Main(string[] args)
+    {
+        //---------konferencja------------------
+        var organizer = new ConferenceOrganizaer();
+
+        var pieczarka = new Participant("Pesho");
+        var kaczka = new Participant("Kaczka");
+        var vader = new Participant("Vader");
+        organizer.ConferenceStarted += pieczarka.OnConferenceStarted;
+        organizer.ConferenceStarted += kaczka.OnConferenceStarted;
+        organizer.ConferenceStarted += vader.OnConferenceStarted;
+
+        organizer.StartConference();
+
+        Console.WriteLine("---------------------");
+
+        organizer.ConferenceStarted -= pieczarka.OnConferenceStarted;
+        organizer.StartConference();
+
+        //-----------powitanie----------
+        /Predicate<int> czyParzysta = (liczba) => liczba % 2 == 0;
+        Console.WriteLine(czyParzysta(2));
+        Console.WriteLine(czyParzysta(3));
+
+        Predicate<string> czyDlugie = slowo => slowo.Length > 5;
+        Console.WriteLine(czyDlugie("helloł"));
+        Console.WriteLine(czyDlugie("hel"));/
+//---------function---------
+        /Func<int> wyswietlLiczbe = () => 42;
+        Console.WriteLine(wyswietlLiczbe());
+
+        Func<string,int> dlugoscTekstu = (text) => text.Length;
+        Console.WriteLine($"Słowo Hello ma długość {dlugoscTekstu("Hello")}");
+
+        Func<int, int, int> pomnoz = (x, y) => x y;
+        Console.WriteLine(pomnoz(10, 20));/
+
+        //-----------action------------
+        /Action powitanie = () =>  Console.WriteLine("Hello IIIBT");
+        powitanie();
+
+        Action<string> wyswietlTekst = (msg) => Console.WriteLine($"Jestem: {msg}");
+        wyswietlTekst("To jest jakiś tekst");
+
+        Action<int, int> wyswietlSume = (x, y) => Console.WriteLine(x + y);
+        wyswietlSume(1, 2);/
+
+        //---------message---------
+        /Display("Hello World!",DisplayGreetings);
+        Display("baj baj",DisplayGoodbye);/
+
+
+
+        /ShowMessage sm = Greetings;
+        sm("Hello World!");
+
+        sm = Goodbye;
+        sm("Goodbye World!");/
+
+
+
+        //---------operacja----------
+        /Operacja oper = Dodaj;
+        int wynik = oper(10, 20);
+        Console.WriteLine(wynik);/
+    }
+
+    /private static int Dodaj(int a, int b)
+    {
+        return a + b;
+    }*/
+}
