@@ -1,0 +1,218 @@
+//----------klasa abstrakcyjna----------
+
+/abstract class Pojazd(val marka:String){
+    abstract  fun uruchomSilnik()
+
+    fun pokazMarke(){
+        println("Marka pojazdu to: $marka")
+    }
+}
+class Samochod(marka:String):Pojazd(marka){
+    override fun uruchomSilnik() {
+        println("Silnik samochodu $marka został uruchomiony")
+    }
+
+}/
+
+//------------ufo4--------------
+/*
+abstract class Ufo(val shape: String = "kuleczka"){
+    abstract fun fly()
+    open fun cloak(){
+        println("Ufo w kształcie $shape próbuje sie ukryc")
+    }
+
+}
+class NormalUfo: Ufo(){
+    override fun fly() {
+        println("Normalne ufo w ksztłcie $shape leci")
+    }
+    override fun cloak(){
+        println("Normalne ufo w kształcie $shape leci")
+
+    }
+}
+class SilverUfo:Ufo("dysk"){
+    override fun fly() {
+        println("Srebrne ufo śmiga !!!")
+    }
+}
+
+class GoldenUfo(shape: String):Ufo(shape){
+    override fun fly() {
+        println("Złote ufo o kształcie $shape leci z prędkością światła")
+    }
+}
+/
+//----------interfejs----------
+/interface Pojazd{
+    val typ: String
+
+    fun uruchom()
+
+    fun zatrzymaj(){
+        println("Pojazd zatrzumuje się ")
+    }
+}
+interface Latający{
+    fun fly()
+}
+
+
+
+class Samochod: Pojazd{
+    override val typ: String = "samochod"
+
+    override fun uruchom() {
+        println("Samochod sie uruchomił")
+    }
+
+}
+class SuperCar:Pojazd,Latający{
+    override val typ: String = "Super Car"
+
+    override fun uruchom() {
+        println("Super samochód ma uruchomiony silnik")
+    }
+
+    override fun fly() {
+        println("Samochód leci")
+    }
+
+}*/
+//----------interfejs2----------
+/*
+interface  Narzedzia{
+    fun uzyj(){
+        println("Używa narzedzi")
+    }
+
+    fun zakoncz(){
+        println("Zakończenie używania narzędzi")
+    }
+}
+class Mlotek:Narzedzia{
+    override fun uzyj(){
+        println("Używa młotka")
+    }
+}
+
+/
+
+//--------interfes 3-------
+/
+
+interface A{
+    fun powitaj(){
+        println("Witam z interfacu A")
+    }
+}
+interface B{
+    fun powitaj(){
+        println("Witam z interfacu B")
+    }
+}
+class X:A,B{
+    override fun powitaj() {
+        super<A>.powitaj()
+        println("Klasa X")
+
+    }
+}
+class Y: A,B{
+    override fun powitaj() {
+        super<B>.powitaj()
+        super<A>.powitaj()
+        println("Klasa Y")
+    }
+}
+*/
+//------------klasa danych----------------
+data class Osoba(val imie: String, val wiek:Int){
+    override fun toString(): String{
+        return "Imię $imie, wiek $wiek"
+    }
+}
+class Person(val name: String,val age:Int)
+fun main(){
+//------------klasa danych----------------
+    val o1 = Osoba("Jan",10)
+    val o2 = Osoba("Jan",10)
+    val o3 = o2.copy(wiek = 987)
+    println(o1)
+    println(o2)
+    println(o1 == o2)
+    println(o1.hashCode() == o2.hashCode())
+    println(o1.hashCode())
+    println(o2.hashCode())
+    println(o3)
+    println(o3.hashCode())
+    println("-------------------------")
+    var p1 = Person("Jan",10)
+    val p2 = Person("Jan",10)
+    println(p1)
+    println(p1.hashCode())
+    println(p2.hashCode())
+    println(p1.hashCode() == p2.hashCode())
+    println(p1 == p2)
+    //val p3 = p2.copy(age=987) nie ma metody copy !!!!!!!!!!
+
+
+
+//--------interfes 3-------
+ /*   val x = X()
+    x.powitaj()
+    println("-----------")
+    val y = Y()
+    y.powitaj()
+/
+
+//----------interfejs2----------
+/    val m = Mlotek()
+    m.uzyj()
+    m.zakoncz()/
+
+
+
+
+
+
+
+//----------interface-----------
+/    val auto = Samochod()
+    auto.uruchom()
+    auto.zatrzymaj()
+    println(auto.typ)
+
+    val superAuto = SuperCar()
+    println(superAuto.typ)
+    superAuto.uruchom()
+    superAuto.fly()
+    superAuto.zatrzymaj()/
+
+
+
+
+
+//------------ufo4--------------
+/
+    val normalne = NormalUfo()
+    val srebrne = SilverUfo()
+    val zloty = GoldenUfo("sześcian")
+
+    normalne.fly()
+    normalne.cloak()
+    srebrne.fly()
+    srebrne.cloak()
+    zloty.fly()
+    zloty.cloak()
+
+    val ufoList = listOf<Ufo>(normalne,srebrne,zloty) //silverUfo nie pozwoli
+/
+
+//----------klasa abstrakcyjna----------
+   / val car = Samochod("Toyota")
+    car.uruchomSilnik()
+    car.pokazMarke()
+    val p = Pojazd("pojazd")*/
+}
