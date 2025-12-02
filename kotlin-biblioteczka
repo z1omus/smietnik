@@ -1,0 +1,83 @@
+//NAZWY KLAS MUSZĄ BYĆ Z DUŻEJ LITERY!!!!
+///////////////////////////////////Main.kt - kotlin class
+package com.example.mylibrary
+
+fun main(){
+    val items = listOf(
+        Book("Adam Mickiewicz", 320, "Poemat", libraryTitle = "Pan Tadeusz", libraryYear = 1834),
+        Book("Henryk Sienkiewicz", 400, "Powieść", libraryTitle = "Krzyżacy", libraryYear = 1900),
+        //jak nie dopiszemy typu do listy, to puści nam różne typy
+        //domyślnie jesr listOf<LibraryItem>
+        Magazine("National Geographic", 203, 9)
+    )
+    println("=======Moja Biblioteczka========")
+    for(item in items){
+        println(item.info())
+
+        if(item is Borrowable){
+            item.borrow()
+            item.returnItem()
+        }
+        println()
+    }
+
+    val modifiedBook = (items[0] as Book).copy(author = "A.Mickiewicz (wydanie szkolne)")
+    println("Kopia książki: $modifiedBook")
+}
+///////////////////////////////////Book.kt - kotlin class
+package com.example.mylibrary
+
+data class Book (
+    val author: String,
+    val pages: Int,
+    val genre: String,
+    var available: Boolean = true,
+    val libraryTitle: String,
+    val libraryYear: Int
+):LibraryItem(libraryTitle, libraryYear), Borrowable{
+    override fun info(): String {
+        return "Książka: ${this.title}, \nautor: $author, \ngatunek: $genre, ($genre, $pages s.)"
+    //może być {this.title} albo title
+    //\n- przejście do kolejnej linijki
+    }
+
+    override fun borrow() {
+        println("Wypożyczono książkę: $title, $year")
+        this.available = false
+    }
+
+    override fun returnItem() {
+        println("Zwrócono książkę: $title")
+        this.available = true
+    }
+
+}
+////////////////////////////////////Magazine.kt - kotlin class
+package com.example.mylibrary
+
+class Magazine(title: String,
+               year: Int,
+               val issue: Int
+    ): LibraryItem(title, year) {
+        override fun info(): String = "Czasopismo $title, numer $issue z roku $year"
+    //to samo co
+    //override fun info(): String{
+    //return "Czasopismo $title, numer $issue z roku $year"
+    //}
+}
+///////////////////////////////////LibraryItem.kt
+package com.example.mylibrary
+
+abstract class LibraryItem (
+    val title: String,
+    val year: Int
+){
+    abstract fun info(): String
+}
+/////////////////////////////////Borrowable.kt - kotlin interface
+package com.example.mylibrary
+
+interface Borrowable {
+    fun borrow()
+    fun returnItem()
+}
