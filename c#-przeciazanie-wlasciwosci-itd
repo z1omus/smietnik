@@ -1,0 +1,268 @@
+class Car
+{
+    //pola- zawsze obiekty muszą mieć te cechy
+    public string brand;
+    public string model;
+    private int year = 2000;
+    
+    //metoda obiektu- każdy obiekt ma tą metodę, która nic nie zwraca, ale wyświetla coś
+    public void DisplayInfo()
+    {
+        Console.WriteLine($"{brand} {model} - {year}");
+    }
+    //przeciążenie- konstruktory, które mają tą samą nazwę ALE RÓŻNE PARAMETRY
+    //konstruktor - metoda klasy, która się nazywa tak samo jak klasa
+    public Car()
+    {
+        this.brand = "fiat";
+        this.model = "126p";
+        this.year = 1970;
+        //mogę ustawić wartość, bo jestem w danej klasie i do tego w konstruktorze
+    }
+    //konstruktor z parametrem
+    public Car(string brand, string model, int year)
+    {
+        this.brand = brand;
+        this.model = model;
+        this.year = year;
+    }
+}
+
+
+internal class Program
+{
+    public static void Main(string[] args)
+    {
+        Car car = new Car();
+      // jeżeli konstruktor bez parametru
+        car.DisplayInfo();
+        //można wpisywać jakieś wartości tylko, jak jest public
+        //car.year = 1995;
+        car.DisplayInfo();
+        //jeżeli metoda jest publiczna, to może wypisywać wartości, które są ustawione na private, bo one je otwiera w sobie
+        Car car2 = new Car();
+        car2.model = "500";
+        car2.DisplayInfo();
+
+    // jeżeli konstruktor z parametrem 
+        Car car = new Car("car1", "car1-model", 1900);
+        car.DisplayInfo();
+        //można wpisywać jakieś wartości tylko, jak jest public
+        //car.year = 1995;
+        car.DisplayInfo();
+        //jeżeli metoda jest publiczna, to może wypisywać wartości, które są ustawione na private, bo one je otwiera w sobie
+        Car car2 = new Car("car2", "car2-model", 2900);
+        car2.model = "500";
+        car2.DisplayInfo();
+
+      //przeciążenie
+        Car car3 = new Car();
+        car3.DisplayInfo();
+        
+    }
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////WŁAŚCIWOŚCI
+class Car
+{
+    public string _brand;
+    //_nazwa - prywatne
+    //__nazwa - bardzo prywatne
+
+    public string Brand
+    {
+        get { return _brand; }
+        set { _brand = value; }
+    }
+    //to samo
+    //public string Brand { get; set; }
+    
+    public string Color { get; } = "Pomarańczowy";
+    //tylko do odczytu
+    
+    public void DisplayInfo()
+    {
+        Console.WriteLine($"{_brand}: ");
+        Console.WriteLine($"brand: {Brand}");
+        Console.WriteLine($"color: {Color}");
+    }
+}
+
+
+internal class Program
+{
+    public static void Main(string[] args)
+    {
+        var car = new Car();
+        car.DisplayInfo();
+        car.Brand = "BMW";
+        car.DisplayInfo();
+    }
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+class Animal
+{
+    public Animal(string name)
+    {
+        this.Name =  name;
+    }
+    public string Name { get; set; } = string.Empty;
+
+    public void Eat()
+    {
+        Console.WriteLine($"{Name} Eating...");
+    }
+}
+
+class Dog : Animal
+{
+    public Dog(string imie) : base(imie)
+    {
+        
+    }
+    public void Bark()
+    {
+        Console.WriteLine($"{Name} is barking...");
+    }
+}
+
+class Cat : Animal
+{
+    public Cat(string imie) : base(imie)
+    //base to odwołanie do konstruktora rodzica
+    {
+        
+    }
+    public void Meow()
+    {
+        Console.WriteLine($"{Name} is meowing...");
+    }
+}
+
+internal class Program
+{
+    public static void Main(string[] args)
+    {
+        var reksio = new Dog("Azor");
+        reksio.Name = "Reksio";
+        reksio.Eat();
+        reksio.Bark();
+
+        var azor = new Dog("Reksio")
+        {
+            Name = "Azor",
+        };
+        //skrócona wersja, skrócenie wyjdzie dopiero, przy przekazywaniu n-tej wartości 
+        azor.Eat();
+        azor.Bark();
+        
+        var cloe = new Cat("Cloe");
+        cloe.Eat();
+        cloe.Meow();
+    }
+}
+//////////////////////polimorfizm- interpretacja na swój sposób
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+//virtual- możliwość nadpisania od rodzica
+//jak w klasie jest virtual to można robić override
+//jak jesteśmy w jednym pliku to nie robi znaczenia, czy klasa jest public czy nie
+class Animal
+{
+    //w Kotlinie zamiast virtual jest open
+    public virtual void MakeSound(){
+        Console.WriteLine("Animal MakingSound");
+    }
+}
+
+class Cat : Animal
+{
+    public override void MakeSound()
+    {
+        Console.WriteLine("Cat MakingSound");
+    }
+}
+
+class Dog : Animal
+{
+    public override void MakeSound()
+    {
+        Console.WriteLine("Dog MakingSound");
+    }
+}
+
+internal class Program
+{
+    public static void Main(string[] args)
+    {
+        Animal myAnimal = new Animal();
+        Animal myDog = new Dog();
+        //zmienna myDog jest typu Animal, ale obiekt przypisany jest typu Dog(), bo wszystkie klasy dziedziczą po klasie Animal
+        Animal myCat = new Cat();
+        myAnimal.MakeSound();
+        myDog.MakeSound();
+        myCat.MakeSound();
+        
+    }
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+//overloading
+// w jednej klasie pojawia się ta sama metoda o różnych parametrach
+class Calculator
+{
+    public int Add(int a, int b)
+    {
+        return a + b;
+    }
+    //rózna sygnatura, bo raz są 2 agrumenty, a potem 3
+    public int Add(int a, int b, int c)
+    {
+        return a + b + c;
+    }
+
+    public double Add(double a, double b)
+    {
+        return a + b;
+    }
+}
+internal class Program
+{
+    public static void Main(string[] args)
+    {
+        var cal =  new Calculator();
+        Console.WriteLine(cal.Add(1, 2));
+        Console.WriteLine(cal.Add(2.326, 24.1986));
+        Console.WriteLine(cal.Add(134, 2356));
+    }
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+//klasa abstrakcyjna- klasa po to żeb robić inne klasy
+class Dog : Animal
+{
+    public override void MakeSound()
+    {
+        Console.WriteLine($"{Name} is dogging");
+    }
+}
+
+class Cat : Animal
+{
+    public override void MakeSound()
+    {
+        Console.WriteLine($"{Name} is catting");
+    }
+}
+
+internal class Program
+{
+    public static void Main(string[] args)
+    {
+        Animal dog = new Dog { Name = "Scoobie Doo" };
+        Animal cat = new Cat{Name = "Scoobie Cat"};
+        Animal cat2 = new Cat { Name = "Garfield" };
+        dog.Eat();
+        cat.Eat();
+    }
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+//interfejs
+
