@@ -1,0 +1,93 @@
+<!--MainWindow.axaml ----------------------------------------------------------------- -->
+
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+// podgląd
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="szponterzy1.MainWindow"
+        Title="szponterzy1"
+
+//okno
+        Width="1200"
+        Height="800"
+        CanResize="True"
+        WindowStartupLocation="CenterScreen"
+        >
+
+
+<Grid ColumnDefinitions="Auto, *, 2*"
+      RowDefinitions="Auto, *, 2*, 3*">
+<!-- <Grid> - to samo
+               <Grid.ColumnDefinitions>
+                       <ColumnDefinition Width="Auto"/>
+                       <!--tyle przestrzeni ile trzeba -->
+                       <ColumnDefinition Width="*"/>
+                       <!--element ma zająć proporcjonalnie 1 jednostke dostepnej przestrzeni -->
+                       <ColumnDefinition Width="2*"/>
+                       <!--kolumna 3. ma byc 2 razy szersza niż 2. -->
+               </Grid.ColumnDefinitions> 
+                <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <!--po zagospodarowaniu przestrzeni auto zostaje ileś miejsca, które ma byc rozplanowane na kolejne 3 rzedy, w których w zalezności zajmują one wiecej miejsca-->
+                        <RowDefinition Height="*"/>
+                        <!--element ma zająć proporcjonalnie 1 jednostke dostepnej przestrzeni -->
+                        <RowDefinition Height="2*"/>
+                        <!--element ma zająć proporcjonalnie 2 jednostki dostepnej przestrzeni -->
+                        <RowDefinition Height="3*"/>
+                        <!--element ma zająć proporcjonalnie 3 jednostki dostepnej przestrzeni -->
+                        
+                </Grid.RowDefinitions>-->
+                <TextBlock Grid.Row="0" Grid.Column="0"
+                           Margin="10"
+                           Text="TextBlock 1"
+                           />
+                <TextBlock Grid.Row="2" Grid.Column="2"
+                           Margin="10"
+                           Text="TextBlock 1"
+                />
+                <Button Grid.Row="0" Grid.Column="1" Margin="10" Content="Button 1"  />
+                <TextBlock Grid.Row="1" Grid.Column="0" Margin="10" Text="TextBlock 2"/>
+                <Button Grid.Row="1" Grid.Column="1" Margin="10" Content="Button 2" />
+                
+                <Rectangle Grid.Row="2" Grid.Column="0"
+                           Margin="10" Width="100" Height="50"
+                           Fill="CadetBlue" Stroke="Purple"
+                           StrokeThickness="3"
+                           />
+                <Rectangle Grid.Row="2" Grid.Column="1"
+                           Margin="10" Width="100" Height="50"
+                           Fill="BlueViolet" Stroke="Purple"
+                           StrokeThickness="3"
+                />
+                <Rectangle Grid.Row="2" Grid.Column="2"
+                           Margin="10" Width="100" Height="50"
+                           Fill="PaleVioletRed" Stroke="Purple"
+                           StrokeThickness="3"
+                />
+                <Rectangle Grid.Row="3" Grid.ColumnSpan="2"
+                           Margin="10" Width="400" Height="50"
+                           Fill="Bisque" Stroke="Purple"
+                           StrokeThickness="3"
+                />
+        </Grid>
+
+<StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+        <Border Width="500" Height="100"
+                Margin="30"
+                Background="Aqua"
+                BorderBrush="BlueViolet"
+                BorderThickness="3"/>
+        <Border Width="200" Height="100"
+                Margin="30"
+                Background="CadetBlue"
+                BorderBrush="Fuchsia"
+                BorderThickness="3"/>
+        <Border Width="200" Height="100"
+                Margin="30"
+                Background="DeepSkyBlue"
+                BorderBrush="Purple"
+                BorderThickness="3"/>
+    </StackPanel>
+</Window>
