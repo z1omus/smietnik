@@ -1,0 +1,167 @@
+//MainWindow.axml
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" 
+        d:DesignWidth="800" 
+        d:DesignHeight="800"
+        x:Class="szpontrerzy2.MainWindow"
+        Title="szpontrerzy2">
+        <StackPanel Margin="10">
+                <Button
+                        Content="Kliknij mnie"
+                        Width="200"
+                        HorizontalAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                />
+                <Button
+                        Content="Drugi do kliknięcia"
+                        Width="300"
+                        Background="LightBlue"
+                        Foreground="CornflowerBlue"
+                        FontSize="30"
+                        />
+                <TextBlock
+                        Text="Text dla szpontów"
+                        Margin="20"
+                        Padding="20"
+                        />
+                <TextBlock
+                        Text="To jest jakis tekst"
+                        Margin="20"
+                        Padding="20"
+                        Foreground="DarkMagenta"
+                        Background="Violet"
+                        TextAlignment="Center"
+                        />
+                <TextBox
+                        Width="300"
+                        Height="50"
+                        Watermark="napisz swoje imię"
+                        Margin="20, 30, 40, 50"
+                        />
+                <TextBox
+                        Width="200"
+                        FontSize="16"
+                        Foreground="DarkCyan"
+                        CornerRadius="20"
+                        Background="CadetBlue"
+                        BorderBrush="DarkCyan"
+                        BorderThickness="10"
+                        />
+                <CheckBox
+                        Content="Akceptuje warunki umowy"
+                        />
+                <CheckBox
+                        Content="Zgadzam sie na kupowanie kebabów dla całej grupy"
+                        FontSize="16"
+                        FontWeight="Solid"
+                        Foreground="HotPink"
+                        Padding="15,15,0,10"
+                        Margin="20"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        
+                        />
+                <StackPanel Orientation="Horizontal">
+                        <RadioButton Content="pizza"
+                                     GroupName="meal"
+                                />
+                        <RadioButton Content="kebab"
+                                     GroupName="meal"
+                        />
+                        <RadioButton Content="Zapiekanka"
+                                     GroupName="meal"
+                                />
+                </StackPanel>
+                <StackPanel>
+                        <RadioButton Content="cola"
+                                     GroupName="drink"
+                        />
+                        <RadioButton Content="woda"
+                                     GroupName="drink"
+                        />
+                        <RadioButton Content="pepsi"
+                                     GroupName="drink"
+                        />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Spacing="10">
+                        <ComboBox Width="200" Margin="20">
+                                <ComboBoxItem Content="Ostry meksykanski"/>
+                                <ComboBoxItem Content="Łagodny wyspiarski"/>
+                                <ComboBoxItem Content="Szefowsko-szponterski"/>
+                        </ComboBox>
+                        
+                        <ComboBox SelectedIndex="1" 
+                                Width="200" 
+                                Margin="20">
+                                <ComboBoxItem Content="klient VIP"/>
+                                <ComboBoxItem Content="zwykły klient"/>
+                                <ComboBoxItem Content="klient Szefa"/>
+                        </ComboBox>
+                </StackPanel>
+        </StackPanel>
+</Window>
+/////////////pobieranie danych
+//inne MainWindow.axml
+
+
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="pobieranieDanych1.MainWindow"
+        Title="pobieranieDanych1">
+        
+        <StackPanel Margin="10" HorizontalAlignment="Center">
+                <TextBox x:Name="InputTextBox"
+                         Width="300"
+                         />
+                <Button x:Name="SubmitName" Content="Submit"
+                        Click="SubmitName_OnClick"
+                        Width="100"
+                        HorizontalContentAlignment="Center"
+                        Margin="0,20,0,0"
+                        Background="Aquamarine"
+                        Foreground="Crimson"
+                        CornerRadius="5"
+                        BorderBrush="Black"
+                        BorderThickness="2"
+                        />
+                <TextBlock x:Name="ShowTextblock"
+                           
+                        
+                        />
+                
+        </StackPanel>
+</Window>
+
+//MainWindow.axml.cs
+using System;
+using Avalonia.Controls;
+using Avalonia.Interactivity;
+
+namespace pobieranieDanych1;
+
+public partial class MainWindow : Window
+{
+    /*private TextBlock _showTextBlock;
+    private TextBox _inputTextBox;
+    private Button _submitButton;*/
+    
+    public MainWindow()
+    {
+        InitializeComponent();
+        /*_inputTextBox = this.FindControl<TextBox>("InputTextBox");
+        _showTextBlock = this.FindControl<TextBlock>("ShowTextBlock");
+        _submitButton = this.FindControl<Button>("SubmitButton");*/
+    }
+
+    private void SubmitName_OnClick(object? sender, RoutedEventArgs e)
+    {
+        /*_showTextBlock.Text = _inputTextBox.Text;*/
+        ShowTextblock.Text = InputTextBox.Text;
+    }
+}
