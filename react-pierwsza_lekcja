@@ -1,0 +1,109 @@
+//App.jsx
+import './App.css'
+import HelloWorld from "./components/HelloWorld.jsx";
+import Welcome from "./components/Welcome.jsx";
+import UserCard from "./components/UserCard.jsx";
+import Button from "./components/Button.jsx";
+import UserProfile from "./components/UserProfile.jsx";
+import Card from "./components/Card.jsx";
+
+function App() {
+    function handleClick(){
+        alert("Kolejny przycisk")
+    }
+    const user={name:"Jan", age:22, email:"jank@wp.pl"}
+
+  return (
+    <>
+      <HelloWorld/>
+        <Welcome name={"Janek"} age={20}/>
+        <Welcome name={"Joanna"} age={52}/>
+        <Welcome name={"Nina"} age={4}/>
+        <UserCard name={"Zosia"} age={17} hobbies={["playing guitar", "singing"," crocheting"]}/>
+        <UserCard name={"Ola"} age={36} hobbies={["rysowanie", "malowanie"]}/>
+        <UserCard age={523} hobbies={["scaring people", "drinking blood", "sleeping whole day"]}/>
+        <Button label={"Pleeeeeaaaase, clickkkkkk meee!"} onClick1={()=>alert("You clicked meeeeeeee!!!!!!")}/>
+        <Button label={"Click to get free computer"} onClick1={()=>alert("You were tricked hahahahahahahahahaha")}/>
+        <Button label={"przycisk"} onClick1={handleClick}/>
+        <UserProfile user={user}/>
+        <Card>
+            <h1>Tytuł</h1>
+            <Welcome/>
+            <UserCard user={user}/>
+            <Card>
+                <h2>Jestem card 2</h2>
+            </Card>
+        </Card>
+    </>
+  )
+}
+
+export default App
+
+//HelloWorld
+import React from "react";
+
+function HelloWorld(){
+    return (
+        <>
+    <h1>Hello World!</h1>
+    <h3>Witamy w React</h3>
+            <p>Lorem ipsum ble ble ble...</p>
+        </>
+    );
+}
+export default HelloWorld;
+
+//Welcome.jsx
+function Welcome({name, age}) {//props={name, age}
+    return (
+        <>
+        <h2>Hello, {name }</h2>
+        <h3>ma {age } lat</h3>
+        </>
+    )
+//destrukturyzacja
+//a, b = {a:10, b:true}
+}
+export default Welcome;
+
+//UserCard
+const UserCard=({name="Nieznany", age, hobbies })=>{
+    return(
+        <>
+            <h1>User Card</h1>
+            <h2>{name}</h2>
+            <p>Age: {age}</p>
+            <p>Hobbies: {hobbies.join(", ")}</p>
+        </>
+    )
+}
+export default UserCard;
+
+//Button
+function Button({onClick1, label}){
+    return <button onClick={onClick1}>{label }</button>
+}
+export default Button;
+
+//UserProfile
+const UserProfile = ({user }) => {
+    return (
+        <div>
+            <h2>{user.name}</h2>
+            <p>Age: {user.age}</p>
+            <p>Email: {user.email}</p>
+        </div>
+    )
+}
+export default UserProfile;
+
+//Card.jsx
+const Card=({children})=>{
+    return(
+        <div style={ {background:"lightblue", padding:"16px", border:"1px solid black"} }>
+            {children}
+        </div>
+    )
+}
+export default Card;
