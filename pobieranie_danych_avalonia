@@ -1,0 +1,103 @@
+//MainWindow.axaml.cs
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Avalonia.Controls;
+using Avalonia.Interactivity;
+using Avalonia.LogicalTree;
+
+namespace sz1;
+
+public partial class MainWindow : Window
+{
+    private List<RadioButton> _rbsGroup2;
+    //pole obiektu - dostępne w całej klasie
+    
+    public MainWindow()
+    {
+        InitializeComponent();
+
+        _rbsGroup2 =
+        [
+            donutRB,
+            cake,
+            cookie
+        ];
+        //SubmitButton.Click += SubmitButton_OnClick;
+    }
+
+    private void SubmitButton_OnClick(object? sender, RoutedEventArgs e)
+    {
+        //skrócona wersja if
+        var checkedBoxValue = CheckBox.IsChecked == true ? "Checked" : "Unchecked";
+        Console.WriteLine(checkedBoxValue);
+        var rbDrinkVal = coffee.IsChecked == true ? "Coffee" : tea.IsChecked == true ? "Tea" : "Water";
+        Console.WriteLine(rbDrinkVal);
+        //var selectedGroup2RB = _rbsGroup2.FirstOrDefault(rb => rb.IsChecked == true);
+        var selectedGroup2RB = this
+            //this- obiekt klasy MainWindow
+            .GetLogicalDescendants()
+            //potomkami jest StackPanel i wszystko w nim
+            .OfType<RadioButton>()
+            .FirstOrDefault(rb => rb.GroupName == "sweets" && rb.IsChecked == true);
+        var selectedGroup2RBValue = selectedGroup2RB?.Content?.ToString() ?? "No selected";
+        Console.WriteLine(selectedGroup2RBValue);
+        
+        var comboBoxValue = (MyComboBox.SelectedItem as ComboBoxItem)?.Content?.ToString() ?? "Klienta ni ma";
+        
+        var content = $"Checkbox: {checkedBoxValue}\n"+
+                      $"Grupa 1 RB: {rbDrinkVal}\n" +
+                      $"Grupa 2 RB: {selectedGroup2RBValue}\n"+
+                      $"comboBox: {comboBoxValue}";
+        InfoLabel.Content = content;
+    }
+}
+
+//MainWindow.axaml
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        Width="800" Height="450"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="sz1.MainWindow"
+        Title="sz1"
+        Background="CornflowerBlue"
+        
+        >
+<StackPanel Margin="20" HorizontalAlignment="Center" Orientation="Vertical">
+        <CheckBox x:Name="CheckBox" Foreground="PaleTurquoise" Content="Check me"/>
+        <StackPanel Orientation="Horizontal" Margin="10, 20, 0 0">
+        <!-- grupa 1 -->
+        <RadioButton x:Name="coffee" Content="kawa" IsChecked="True" Foreground="PaleTurquoise"
+                     GroupName="drink"/>
+        <RadioButton x:Name="tea" Content="herbata" Foreground="PaleTurquoise"
+                     GroupName="drink"/>
+        <RadioButton x:Name="water" Content="woda" Foreground="PaleTurquoise"
+                     GroupName="drink"/>
+        </StackPanel>
+        <StackPanel Orientation="Vertical" Margin="10, 20, 0 0">
+            <RadioButton x:Name="donutRB" Foreground="PaleTurquoise" Content="pączuś" Margin="0 5, 0  0" IsChecked="True" GroupName="sweets"/>
+            <RadioButton x:Name="cake" Foreground="PaleTurquoise" Content="ciacho" Margin="0 5, 0 0" GroupName="sweets"/>
+            <RadioButton x:Name="cookie" Foreground="PaleTurquoise" Content="kruszonka" Margin="0 5, 0 0" GroupName="sweets"/>
+        </StackPanel>
+        <ComboBox x:Name="MyComboBox" SelectedIndex="0" Width="200" Margin="10 0" Background="#DE0579">
+            <ComboBoxItem Foreground="CornflowerBlue"  Content="klient"/>
+            <ComboBoxItem Foreground="CornflowerBlue" Content="VIP"/>
+            <ComboBoxItem Foreground="CornflowerBlue" Content="Standard"/>
+        </ComboBox>
+        <Button x:Name="SubmitButton" Content="Submit" Width="70" Margin="0 20 0 0"
+                HorizontalAlignment="Center"
+                HorizontalContentAlignment="Left"
+                Background="#DE84B6"
+                Foreground="PaleTurquoise"
+                Click="SubmitButton_OnClick"
+                />
+        <Label x:Name="InfoLabel"
+               Margin="20 0"
+               Content="Tu pojawią się kiedyś jakieś informacje"
+               Foreground="PaleTurquoise"/>
+        
+</StackPanel>
+</Window>
+
