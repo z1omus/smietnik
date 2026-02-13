@@ -1,0 +1,43 @@
+import {type ChangeEvent, type SyntheticEvent, useState} from "react";
+
+function App() {
+    const [textInput, setTextInput] = useState<string>("to jest z useState'a")
+    function handleSubmit(event: SyntheticEvent<HTMLFormElement>) {
+        event.preventDefault();
+        //console.log(event.target);
+        console.log(`wartosc textInput: ${textInput}`);
+        setTextInput("");
+    }
+
+
+    function handleTextInputChange(e: ChangeEvent<HTMLInputElement>) {
+        console.log(e.target.value);
+        setTextInput(e.target.value);
+    }
+
+    return (
+    <>
+      <form onSubmit={handleSubmit}>
+          <input type="text"
+          //value="to jest init value"
+          value={textInput}
+             //value wprowadza stringa na stałe
+          onChange={handleTextInputChange}
+          placeholder="wprowadź jakis tekst"
+          />
+
+          {
+              textInput.length < 3 && textInput.length > 0 && (
+                  <span style={{ color: "hotpink", margin: "3px" }}>
+                      tekst jest za krótki
+                  </span>
+              )
+          }
+
+          <button disabled={textInput.length<3} type="submit">Submit</button>
+      </form>
+    </>
+  )
+}
+
+export default App
