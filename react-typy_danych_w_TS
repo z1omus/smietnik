@@ -1,0 +1,57 @@
+// Hello.tsx
+type HelloProps ={
+    name: string
+}
+/*const Hello = (props: HelloProps) => {
+    const { name } = props;*/
+const Hello = ({name}: HelloProps) => {
+    return <h1>Hello {name}</h1>
+};
+    export default Hello;
+
+//Card.tsx
+import * as React from "react";
+interface CardProps {
+    //można zamiennie pisać interface i type
+    children: React.ReactNode;
+}
+const Card: React.FC<CardProps> = ({children} ) => {
+    return (
+        <div style={ {border: "1px dotted pink",
+            padding: "10px",
+            borderRadius: "5px" } } >
+            {children}
+        </div>
+    )
+}
+export default Card;
+
+//App.tsx
+import './App.css'
+import Hello from "./Hello.tsx";
+import Card from "./Card.tsx";
+
+function App() {
+
+
+  return (
+    <>
+      <Hello name={"Gru"}/>
+        <Hello name={"Lucy"}/>
+        <Card>
+            <h2>siema</h2>
+            <Hello name={"Gumiś"}/>
+        </Card>
+        <Card>
+            <p>- Co teraz robisz?</p>
+            <Card>
+                <h5>- Zajmuję się lekcją</h5>
+                <Hello name={"Robin Hood"}/>
+                <h1>też tu jest</h1>
+            </Card>
+        </Card>
+    </>
+  )
+}
+
+export default App
