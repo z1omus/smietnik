@@ -1,0 +1,160 @@
+//formularzZTestem - project
+//MainWindow.axaml
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="formularzZTestem.MainWindow"
+        Title="formularzZTestem">
+    <StackPanel Margin="20" Spacing="10">
+        <Label Content="Imię:" Target="UserNameInput"/>
+        <TextBox Name="UserNameInput" Watermark="Wpisz imię..."/>
+
+        <TextBlock Name="StatusText" Text="Oczekiwanie..." Foreground="Gray"/>
+
+        <CheckBox Name="TermsCheckBox" Content="Akceptuję regulamin"/>
+
+        <StackPanel Orientation="Horizontal" Spacing="10">
+            <RadioButton Name="OptionARadio" Content="Opcja A" GroupName="Options"/>
+            <RadioButton Name="OptionBRadio" Content="Opcja B" GroupName="Options"/>
+        </StackPanel>
+
+        <ComboBox Name="CountryCombo" PlaceholderText="Wybierz kraj">
+            <ComboBoxItem>Polska</ComboBoxItem>
+            <ComboBoxItem>Niemcy</ComboBoxItem>
+            <ComboBoxItem>USA</ComboBoxItem>
+        </ComboBox>
+
+        <Button Name="SubmitButton" Content="Wyślij" Click="SubmitButton_Click"/>
+    </StackPanel>
+</Window>
+
+//MainWindow.axaml.cs
+using Avalonia.Controls;
+using Avalonia.Interactivity;
+
+namespace formularzZTestem;
+
+public partial class MainWindow : Window
+{
+    public MainWindow()
+    {
+        InitializeComponent();
+    }
+    
+    public void SubmitButton_Click(object? sender, RoutedEventArgs routedEventArgs)
+    {
+        if (TermsCheckBox.IsChecked == true && !string.IsNullOrWhiteSpace(UserNameInput.Text))
+        {
+            var country = (CountryCombo.SelectedItem as ComboBoxItem)?.Content?.ToString();
+            StatusText.Text = $"Wysłano: {UserNameInput.Text} ({country})";
+        }
+        else
+        {
+            StatusText.Text = "Błąd formularza!";
+        }
+    }
+}
+
+//formularzZTestem.tests - project
+//TestApp.cs
+using Avalonia;
+using Avalonia.Headless;
+using formularzZTestem;
+
+[assembly: AvaloniaTestApplication(typeof(formularzZTestem.tests.TestApp))]
+namespace formularzZTestem.tests;
+
+    public class TestApp
+    {
+        public static AppBuilder BuildAvaloniaApp() => AppBuilder.Configure<App>()
+            .UseHeadless(new AvaloniaHeadlessPlatformOptions());
+    }
+
+
+//MainWindowTests.cs
+using Avalonia.Controls;
+using Avalonia.Headless.XUnit;
+using Avalonia.Interactivity;
+using formularzZTestem;
+
+namespace TestProject1;
+
+public class MainWindowTests
+{
+    [AvaloniaFact]
+    public void Status_ShouldBeWaiting_OnStartup()
+    {
+        //Arrange
+        var window = new MainWindow();
+        
+        //act
+        var status= window.FindControl<TextBlock>("StatusText");
+        
+        //Assert
+        Assert.NotNull(status);
+        Assert.Equal("Oczekiwanie...", status.Text);
+    }
+    
+    [AvaloniaFact]
+    public void SubmitButton_ShouldBeEnabled_ByDefault()
+    {
+        var window = new MainWindow();
+        var btn = window.FindControl<Button>("SubmitButton");
+        Assert.NotNull(btn);
+        Assert.True(btn.IsEnabled);
+    }
+
+    [AvaloniaFact]
+    public void RadioButtons_ShouldMutuallyExlusive()
+    {
+        //arrange
+        var window = new MainWindow();
+        var rbtnA = window.FindControl<RadioButton>("OptionARadio");
+        var rbtnB = window.FindControl<RadioButton>("OptionBRadio");
+        
+        Assert.NotNull(rbtnA);
+        Assert.NotNull(rbtnB);
+        
+        rbtnA.IsChecked = true;
+        
+        // act
+        rbtnB.IsChecked = true;
+        
+        // assert
+        Assert.False(rbtnA.IsChecked, "zaznaczenie B powinno odznaczyć A");
+        Assert.True(rbtnB.IsChecked);
+    }
+    
+    [AvaloniaFact]
+    public void UserNameInput_ShouldBeStoreProvidedText()
+    {
+        var window = new MainWindow();
+        var nameInput = window.FindControl<TextBox>("UserNameInput");
+        Assert.NotNull(nameInput);
+
+        string testName = "Jan Kowalski";
+        nameInput.Text = testName;
+        Assert.Equal(testName, nameInput.Text);
+    }
+
+    [AvaloniaFact]
+    public void Submit_ShouldShowError_WhenTermsNotChecked()
+    {
+        var window = new MainWindow();
+        var nameInput = window.FindControl<TextBox>("UserNameInput");
+        var terms = nameInput.FindControl<CheckBox>("TermsCheck");
+        var btn = window.FindControl<Button>("SubmitButton");
+        var status = window.FindControl<TextBlock>("StatusText");
+
+        nameInput.Text = "Jan";
+        terms.IsChecked = false;
+        
+        //act 
+        btn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));//symulacja kliknięcia buttonu
+        
+        Assert.Equal("Błąd formularza!", nameInput.Text);
+    }
+}
+
