@@ -1,0 +1,56 @@
+import './App.css'
+function App() {
+
+  return (
+    <>
+      <div style={{display: 'flex', gap:10, marginBottom: "10px", color: 'lightpink'}}>
+          <div style={{flex: 1}}>
+          <strong>flex-direction: row</strong>
+          <div style={{ display: 'flex',flexDirection: 'row',
+          backgroundColor: 'pink', padding:'10px', border:'3px solid hotpink'}}>
+              <div style={{width: 40, height: 40, backgroundColor: 'lightcyan',margin:'15px'}}/>
+              <div style={{width: 40, height: 40, backgroundColor: 'lightblue',margin:'15px'}}/>
+              <div style={{width: 40, height: 40, backgroundColor: 'cyan',margin:'15px'}}/>
+              <div style={{width: 40, height: 40, backgroundColor: 'lightskyblue',margin:'15px'}}/>
+          </div>
+          </div>
+
+          <div style={{flex: 1}}>
+              <strong>flex-direction: column</strong>
+              <div style={{ display: 'flex', flexDirection: 'column',
+                  backgroundColor: 'pink', padding:'10px', border:'3px solid hotpink'}}>
+                  <div style={{width: 40, height: 40, backgroundColor: 'lightcyan',margin:'15px'}}/>
+                  <div style={{width: 40, height: 40, backgroundColor: 'lightblue',margin:'15px'}}/>
+                  <div style={{width: 40, height: 40, backgroundColor: 'cyan',margin:'15px'}}/>
+                  <div style={{width: 40, height: 40, backgroundColor: 'lightskyblue',margin:'15px'}}/>
+              </div>
+          </div>
+
+          <div style={{flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
+              <strong>flex-direction: column</strong>
+              <div style={{
+                  backgroundColor: 'pink', padding:'10px', border:'3px solid hotpink'}}>
+                  <div style={{width: 40, height: 40, backgroundColor: 'lightcyan',margin:'15px'}}/>
+                  <div style={{width: 40, height: 40, backgroundColor: 'lightblue',margin:'15px'}}/>
+                  <div style={{width: 40, height: 40, backgroundColor: 'cyan',margin:'15px'}}/>
+                  <div style={{width: 40, height: 40, backgroundColor: 'lightskyblue',margin:'15px'}}/>
+              </div>
+          </div>
+
+          <div style={{flex: 1, display: 'flex', flexDirection: 'column', gap: "10px"}}>
+              <div>
+                  <code>justify-content: center</code>
+                  <div style={{display:"flex", justifyContent:"center", padding:"10px", border:'3px solid lightpink'}}>
+                      <div style={{width: 40, height: 40, backgroundColor: 'lightcyan',margin:'15px', color:"darkblue"}}>1</div>
+                      <div style={{width: 40, height: 40, backgroundColor: 'lightblue',margin:'15px'}}>2</div>
+                      <div style={{width: 40, height: 40, backgroundColor: 'cyan',margin:'15px'}}>3</div>
+                      <div style={{width: 40, height: 40, backgroundColor: 'darkcyan',margin:'15px'}}>4</div>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </>
+  )
+}
+
+export default App
