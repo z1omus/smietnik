@@ -1,7 +1,37 @@
+
 import {type ChangeEvent, type SyntheticEvent, useState} from "react";
 
 function App() {
     const [textInput, setTextInput] = useState<string>("to jest z useState'a")
+    const [hasAgreed, setHasAgreed] = useState<boolean>(false)
+    const [fruit, setFruit] = useState<string>("banana")
+    const [paymentMethod, setPaymentMethod] = useState<string>("cash")
+    const [description, setDescription] = useState<string>("")
+    const [selectDate, setSelectDate] = useState<string>("")
+    const [volume, setVolume] = useState<number>(50)
+
+    function handleVolumeChange(event: ChangeEvent<HTMLInputElement>) {
+        setVolume(Number(event.target.value))
+    }
+
+    function handleDateChange(e: ChangeEvent<HTMLInputElement>) {
+        setSelectDate(e.target.value)
+        console.log(e.target.value)
+    }
+
+    function handleDescriptionChange(e: ChangeEvent<HTMLTextAreaElement>) {
+        console.log(e.target.value)
+        setDescription(e.target.value)
+    }
+
+    function handlePaymentMethodChange(event: ChangeEvent<HTMLInputElement>) {
+        console.log(event.target.value)
+        setPaymentMethod(event.target.value)
+    }
+    function handleSelectChange(event: ChangeEvent<HTMLSelectElement>) {
+        console.log(event.target.value)
+        setFruit(event.target.value)
+    }
     function handleSubmit(event: SyntheticEvent<HTMLFormElement>) {
         event.preventDefault();
         //console.log(event.target);
@@ -13,6 +43,11 @@ function App() {
     function handleTextInputChange(e: ChangeEvent<HTMLInputElement>) {
         console.log(e.target.value);
         setTextInput(e.target.value);
+    }
+
+    function handleCheckboxChange(event: ChangeEvent<HTMLInputElement>) {
+        console.log(event.target.checked);
+        setHasAgreed(event.target.checked);
     }
 
     return (
@@ -33,8 +68,77 @@ function App() {
                   </span>
               )
           }
+          <label>
+              <input type="checkbox"
+                    checked={hasAgreed}
+                     onChange={handleCheckboxChange}
+              />
+              Akcepuję warunki umowy
+          </label><br/>
+            <label>
+                wybierz ulubiony owoc
+                <select onChange={handleSelectChange}
+                value={fruit}
+                style={{margin: "10px", padding:"5px"}}>
+                    <option value="orange">Pomarańcza</option>
+                    <option value="apple">Jabłko</option>
+                    <option value="banana">Banan</option>
+                    <option value="blueberry">Borówka</option>
+                </select>
+            </label><br/>
+            <label>
+                <p>wybierz metodę płatności</p>
+                <input type="radio"
+                       value="cash"
+                       checked={paymentMethod==="cash"}
+                       onChange={handlePaymentMethodChange}/>Gotówka
 
-          <button disabled={textInput.length<3} type="submit">Submit</button>
+                </label>
+          <label>
+                <input type="radio"
+                       value="blik"
+                       checked={paymentMethod==="blik"}
+                       onChange={handlePaymentMethodChange}/>BLIK
+            </label>
+          <label><input type="radio"
+                       value="card"
+                       checked={paymentMethod==="card"}
+                       onChange={handlePaymentMethodChange}/>Karta
+            </label><br/>
+          <label>
+              Opisz swój problem:<br/>
+              <textarea
+                  value={description}
+                  onChange={handleDescriptionChange}
+                rows={4}
+                placeholder={"tu opisz swój problem"}
+              />
+          </label><br/>
+          <label>
+              Wybierz datę urodzenia:
+              <input
+                  type="date"
+                  onChange={handleDateChange}
+                  value={selectDate}
+                  min={"2001-01-01"}
+                  max={"2025-12-31"}
+                  /><br/>
+          </label>
+          <label>
+              <div style={{display: "flex", alignItems: "center", gap: "10px"}}>
+                  <input type="range"
+                  min={0}
+                  max={100}
+                  step={10}
+                  value={volume}
+                  onChange={handleVolumeChange}
+                  />
+                  <span style={{fontFamily: "Arial", fontStyle:"oblique", color:"hotpink"}}>{volume} %</span>
+              </div>
+          </label>
+
+
+          <br/><button disabled={textInput.length<3} type="submit">Submit</button>
       </form>
     </>
   )
